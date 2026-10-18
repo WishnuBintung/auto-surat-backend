@@ -1,0 +1,96 @@
+from django.db import models
+from django.contrib.postgres.fields import ArrayField
+from accounts.models import User, Faculty, Department, Lecturer, Student, Course, StudentCourse
+
+# ==============================================================================
+# TAHAP 1: Tabel Utama & Master Non-FK
+# ==============================================================================
+
+class SuratType(models.Model):
+    kode_surat = models.CharField(max_length=50, primary_key=True)
+    nama_surat = models.CharField(max_length=255)
+    kategori = models.CharField(max_length=100)
+    is_auto_approval = models.BooleanField(default=False)
+    template_path = models.CharField(max_length=500, null=True, blank=True)
+    required_payload_fields = models.JSONField(default=list, blank=True)
+
+    class Meta:
+        db_table = 'surat_types'
+
+class ApprovalRule(models.Model):
+    kode_surat = models.ForeignKey(SuratType, on_delete=models.CASCADE)
+    step_order = models.IntegerField()
+    approval_role = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'approval_rules'
+
+
+class SuratNumberCounter(models.Model):
+    kode_surat = models.ForeignKey(SuratType, on_delete=models.CASCADE)
+    fakultas = models.ForeignKey(Faculty, on_delete=models.CASCADE, null=True, blank=True)
+    prodi = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
+    tahun = models.IntegerField()
+    bulan = models.IntegerField()
+    last_number = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'surat_number_counter'
+
+
+class SuratRequest(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='requests')
+    kode_surat = models.ForeignKey(SuratType, on_delete=models.CASCADE)
+    nomor_surat_resmi = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=50, default="SUBMITTED")
+    payload_data = models.JSONField()  # Django native JSONField
+    file_pdf_url = models.CharField(max_length=500, null=True, blank=True)
+    qr_verification_code = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'surat_request'
+
+
+class SuratApproval(models.Model):
+    surat_request = models.ForeignKey(SuratRequest, on_delete=models.CASCADE, related_name='approvals')
+    step_order = models.IntegerField()
+    approver = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, default="PENDING")
+    catatan = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'surat_approvals'
+
+
+class SuratAttachment(models.Model):
+    surat_request = models.ForeignKey(SuratRequest, on_delete=models.CASCADE, related_name='attachments')
+    nama_dokumen = models.CharField(max_length=255)
+    file_url = models.CharField(max_length=500)
+    mime_type = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'surat_attachment'
+
+
+class TteSignature(models.Model):
+    surat_request = models.ForeignKey(SuratRequest, on_delete=models.CASCADE, related_name='signatures')
+    signer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, null=True, blank=True)
+    hash_document = models.CharField(max_length=255)
+    token = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'tte_signatures'
+
+
+class SuratAuditLog(models.Model):
+    surat_request = models.ForeignKey(SuratRequest, on_delete=models.CASCADE, related_name='audit_logs')
+    action_id = models.CharField(max_length=100)
+    action = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'surat_audit_logs'

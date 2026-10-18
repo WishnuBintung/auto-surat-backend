@@ -1,0 +1,7 @@
+[
+  {"field": "instansi_tujuan", "label": "Nama Instansi Tujuan", "type": "string", "description": "Nama instansi yang menerima surat"},
+  {"field": "tujuan_keperluan", "label": "Keperluan Surat", "type": "string", "description": "Tujuan penggunaan surat"},
+  {"field": "posisi_dilamar", "label": "Posisi yang Dilamar", "type": "string", "description": "Posisi magang yang dilamar"},
+  {"field": "tanggal_mulai", "label": "Tanggal Mulai", "type": "date", "description": "Tanggal mulai observasi"},
+  {"field": "tanggal_selesai", "label": "Tanggal Selesai", "type": "date", "description": "Tanggal selesai observasi"}
+]

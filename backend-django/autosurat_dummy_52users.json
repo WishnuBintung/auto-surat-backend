@@ -1,0 +1,6426 @@
+{
+  "faculties": [
+    {
+      "id": "FT",
+      "nama_fakultas": "Fakultas Teknik",
+      "dekan_id": "l-01",
+      "wadek_1_id": "l-02",
+      "wadek_3_id": "l-03"
+    },
+    {
+      "id": "FIK",
+      "nama_fakultas": "Fakultas Ilmu Komputer",
+      "dekan_id": "l-07",
+      "wadek_1_id": "l-08",
+      "wadek_3_id": "l-09"
+    }
+  ],
+  "departments": [
+    {
+      "id": "INF",
+      "fakultas_id": "FT",
+      "nama_prodi": "Informatika",
+      "kaprodi_id": "l-04"
+    },
+    {
+      "id": "SIS",
+      "fakultas_id": "FIK",
+      "nama_prodi": "Sistem Informasi",
+      "kaprodi_id": "l-10"
+    }
+  ],
+  "users": [
+    {
+      "id": "u-lec-01",
+      "nama": "Dr. Joel Evans, M.T.",
+      "nip_nim": "198001012005011001",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-02",
+      "nama": "Dr. Meghan Gonzalez, M.T.",
+      "nip_nim": "198001012005011002",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-03",
+      "nama": "Dr. Natalie Snyder, M.T.",
+      "nip_nim": "198001012005011003",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-04",
+      "nama": "Dr. Lillian Welch, M.T.",
+      "nip_nim": "198001012005011004",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-05",
+      "nama": "Dr. Alicia Weaver, M.T.",
+      "nip_nim": "198001012005011005",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-06",
+      "nama": "Dr. Marion Kuhn, M.T.",
+      "nip_nim": "198001012005011006",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-07",
+      "nama": "Dr. Jar Rodriguez, M.T.",
+      "nip_nim": "198001012005011007",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-08",
+      "nama": "Dr. Travis Miles, M.T.",
+      "nip_nim": "198001012005011008",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-09",
+      "nama": "Dr. Kent Rhodes, M.T.",
+      "nip_nim": "198001012005011009",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-10",
+      "nama": "Dr. Bernard Hernandez, M.T.",
+      "nip_nim": "198001012005011010",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-11",
+      "nama": "Dr. Bertha Fleming, M.T.",
+      "nip_nim": "198001012005011011",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-lec-12",
+      "nama": "Dr. Leslie Lambert, M.T.",
+      "nip_nim": "198001012005011012",
+      "role": "LECTURER",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF23001",
+      "nama": "Brooke Moreno",
+      "nip_nim": "INF23001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF23002",
+      "nama": "Noah Barnes",
+      "nip_nim": "INF23002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF23003",
+      "nama": "Lauren May",
+      "nip_nim": "INF23003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF23004",
+      "nama": "Ron Mitchelle",
+      "nip_nim": "INF23004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF23005",
+      "nama": "Joseph Rose",
+      "nip_nim": "INF23005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF24001",
+      "nama": "Julian Sanchez",
+      "nip_nim": "INF24001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF24002",
+      "nama": "Miguel Long",
+      "nip_nim": "INF24002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF24003",
+      "nama": "Krin Watson",
+      "nip_nim": "INF24003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF24004",
+      "nama": "Kimberly Hunter",
+      "nip_nim": "INF24004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF24005",
+      "nama": "Zoe Gregory",
+      "nip_nim": "INF24005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF25001",
+      "nama": "Zack Pena",
+      "nip_nim": "INF25001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF25002",
+      "nama": "Robert Hughes",
+      "nip_nim": "INF25002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF25003",
+      "nama": "Paul Sullivan",
+      "nip_nim": "INF25003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF25004",
+      "nama": "Andrea Burton",
+      "nip_nim": "INF25004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF25005",
+      "nama": "Glen Wood",
+      "nip_nim": "INF25005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF26001",
+      "nama": "Lily Watson",
+      "nip_nim": "INF26001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF26002",
+      "nama": "Rafael Watts",
+      "nip_nim": "INF26002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF26003",
+      "nama": "Vicki Oliver",
+      "nip_nim": "INF26003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF26004",
+      "nama": "Rose Warren",
+      "nip_nim": "INF26004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-INF26005",
+      "nama": "Jeremy Martinez",
+      "nip_nim": "INF26005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS23001",
+      "nama": "Calvin Castillo",
+      "nip_nim": "SIS23001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS23002",
+      "nama": "Ritthy Sutton",
+      "nip_nim": "SIS23002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS23003",
+      "nama": "Britney Bradley",
+      "nip_nim": "SIS23003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS23004",
+      "nama": "Wilma Nguyen",
+      "nip_nim": "SIS23004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS23005",
+      "nama": "Donna Gardner",
+      "nip_nim": "SIS23005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS24001",
+      "nama": "Kristen Peck",
+      "nip_nim": "SIS24001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS24002",
+      "nama": "Jason Dixon",
+      "nip_nim": "SIS24002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS24003",
+      "nama": "Denise Mason",
+      "nip_nim": "SIS24003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS24004",
+      "nama": "Ricky Jensen",
+      "nip_nim": "SIS24004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS24005",
+      "nama": "Jessica Nelson",
+      "nip_nim": "SIS24005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS25001",
+      "nama": "Amber Lucas",
+      "nip_nim": "SIS25001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS25002",
+      "nama": "Myrtle Fields",
+      "nip_nim": "SIS25002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS25003",
+      "nama": "Barb Riley",
+      "nip_nim": "SIS25003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS25004",
+      "nama": "Kim Gray",
+      "nip_nim": "SIS25004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS25005",
+      "nama": "Dan Lowe",
+      "nip_nim": "SIS25005",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS26001",
+      "nama": "Josef Shelton",
+      "nip_nim": "SIS26001",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS26002",
+      "nama": "Neil Myers",
+      "nip_nim": "SIS26002",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS26003",
+      "nama": "Henry Tucker",
+      "nip_nim": "SIS26003",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS26004",
+      "nama": "Nicole Kennedy",
+      "nip_nim": "SIS26004",
+      "role": "STUDENT",
+      "password": "12345678"
+    },
+    {
+      "id": "u-std-SIS26005",
+      "nama": "Johnny Peck",
+      "nip_nim": "SIS26005",
+      "role": "STUDENT",
+      "password": "12345678"
+    }
+  ],
+  "lecturers": [
+    {
+      "id": "l-01",
+      "user_id": "u-lec-01",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": [
+        "DEKAN_FT"
+      ]
+    },
+    {
+      "id": "l-02",
+      "user_id": "u-lec-02",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": [
+        "WADEK_1_FT"
+      ]
+    },
+    {
+      "id": "l-03",
+      "user_id": "u-lec-03",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": [
+        "WADEK_3_FT"
+      ]
+    },
+    {
+      "id": "l-04",
+      "user_id": "u-lec-04",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": [
+        "KAPRODI_INF"
+      ]
+    },
+    {
+      "id": "l-05",
+      "user_id": "u-lec-05",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": []
+    },
+    {
+      "id": "l-06",
+      "user_id": "u-lec-06",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "jabatan_struktural": []
+    },
+    {
+      "id": "l-07",
+      "user_id": "u-lec-07",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": [
+        "DEKAN_FIK"
+      ]
+    },
+    {
+      "id": "l-08",
+      "user_id": "u-lec-08",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": [
+        "WADEK_1_FIK"
+      ]
+    },
+    {
+      "id": "l-09",
+      "user_id": "u-lec-09",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": [
+        "WADEK_3_FIK"
+      ]
+    },
+    {
+      "id": "l-10",
+      "user_id": "u-lec-10",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": [
+        "KAPRODI_SIS"
+      ]
+    },
+    {
+      "id": "l-11",
+      "user_id": "u-lec-11",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": []
+    },
+    {
+      "id": "l-12",
+      "user_id": "u-lec-12",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "jabatan_struktural": []
+    }
+  ],
+  "courses": [
+    {
+      "kode_matkul": "MK-INF-101",
+      "nama_matkul": "Dasar-Dasar Pemrograman",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-102",
+      "nama_matkul": "Matematika Diskrit",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-103",
+      "nama_matkul": "Pengantar Teknologi Informasi",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-201",
+      "nama_matkul": "Algoritma dan Struktur Data",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-202",
+      "nama_matkul": "Arsitektur & Organisasi Komputer",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-203",
+      "nama_matkul": "Kalkulus Informatika",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-301",
+      "nama_matkul": "Pemrograman Berbasis Objek",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-302",
+      "nama_matkul": "Sistem Basis Data",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-303",
+      "nama_matkul": "Jaringan Komputer Dasar",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-401",
+      "nama_matkul": "Pemrograman Web Lanjut",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-402",
+      "nama_matkul": "Basis Data Lanjut & SQL",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-403",
+      "nama_matkul": "Sistem Operasi",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-501",
+      "nama_matkul": "Kecerdasan Buatan (AI)",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-502",
+      "nama_matkul": "Keamanan Siber & Kriptografi",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-503",
+      "nama_matkul": "Rekayasa Perangkat Lunak",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-601",
+      "nama_matkul": "Pembelajaran Mesin (Machine Learning)",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-602",
+      "nama_matkul": "Pengolahan Citra Digital",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-603",
+      "nama_matkul": "Komputasi Awan (Cloud Computing)",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-701",
+      "nama_matkul": "Metodologi Penelitian & Etika IT",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-702",
+      "nama_matkul": "Kapita Selekta Informatika",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-703",
+      "nama_matkul": "Praktik Kerja Lapangan (PKL)",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-801",
+      "nama_matkul": "Skripsi / Tugas Akhir 1",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-802",
+      "nama_matkul": "Skripsi / Tugas Akhir 2",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-INF-803",
+      "nama_matkul": "Ujian Komprehensif",
+      "sks": 4,
+      "prodi_id": "INF"
+    },
+    {
+      "kode_matkul": "MK-SIS-101",
+      "nama_matkul": "Pengantar Sistem Informasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-102",
+      "nama_matkul": "Konsep Manajemen Bisnis",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-103",
+      "nama_matkul": "Dasar Algoritma & Logika",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-201",
+      "nama_matkul": "Analisis Perancangan Sistem",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-202",
+      "nama_matkul": "Pemrograman Aplikasi Bisnis",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-203",
+      "nama_matkul": "Manajemen Proses Bisnis",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-301",
+      "nama_matkul": "Manajemen Dasar Data & Informasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-302",
+      "nama_matkul": "Desain Antarmuka Pengguna (UI/UX)",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-303",
+      "nama_matkul": "Perilaku Organisasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-401",
+      "nama_matkul": "Sistem Informasi Manajemen",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-402",
+      "nama_matkul": "Pengujian & Kualitas Perangkat Lunak",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-403",
+      "nama_matkul": "Tata Kelola IT (IT Governance)",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-501",
+      "nama_matkul": "Enterprise Resource Planning (ERP)",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-502",
+      "nama_matkul": "Analisis Data Bisnis",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-503",
+      "nama_matkul": "Manajemen Proyek Teknologi Informasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-601",
+      "nama_matkul": "Business Intelligence & Analytics",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-602",
+      "nama_matkul": "Audit Sistem Informasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-603",
+      "nama_matkul": "E-Commerce & Bisnis Digital",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-701",
+      "nama_matkul": "Metodologi Penelitian Sistem Informasi",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-702",
+      "nama_matkul": "Perencanaan Strategis IS/IT",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-703",
+      "nama_matkul": "Praktik Kerja Lapangan (PKL)",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-801",
+      "nama_matkul": "Skripsi / Tugas Akhir 1",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-802",
+      "nama_matkul": "Skripsi / Tugas Akhir 2",
+      "sks": 4,
+      "prodi_id": "SIS"
+    },
+    {
+      "kode_matkul": "MK-SIS-803",
+      "nama_matkul": "Seminar Hasil & Sidang",
+      "sks": 4,
+      "prodi_id": "SIS"
+    }
+  ],
+  "students": [
+    {
+      "nim": "INF23001",
+      "user_id": "u-std-INF23001",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Moreno",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.68,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF23002",
+      "user_id": "u-std-INF23002",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Barnes",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.37,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF23003",
+      "user_id": "u-std-INF23003",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak May",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.32,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF23004",
+      "user_id": "u-std-INF23004",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Mitchelle",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.75,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF23005",
+      "user_id": "u-std-INF23005",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Rose",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.78,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF24001",
+      "user_id": "u-std-INF24001",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Sanchez",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.9,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF24002",
+      "user_id": "u-std-INF24002",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Long",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.94,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF24003",
+      "user_id": "u-std-INF24003",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Watson",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.22,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF24004",
+      "user_id": "u-std-INF24004",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Hunter",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.86,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF24005",
+      "user_id": "u-std-INF24005",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Gregory",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.52,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF25001",
+      "user_id": "u-std-INF25001",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Pena",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.31,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF25002",
+      "user_id": "u-std-INF25002",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Hughes",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.49,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF25003",
+      "user_id": "u-std-INF25003",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Sullivan",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.91,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF25004",
+      "user_id": "u-std-INF25004",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Burton",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.4,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF25005",
+      "user_id": "u-std-INF25005",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Wood",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.54,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF26001",
+      "user_id": "u-std-INF26001",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Watson",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.58,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF26002",
+      "user_id": "u-std-INF26002",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Watts",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.28,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF26003",
+      "user_id": "u-std-INF26003",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Oliver",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.67,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF26004",
+      "user_id": "u-std-INF26004",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Warren",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.83,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "INF26005",
+      "user_id": "u-std-INF26005",
+      "fakultas_id": "FT",
+      "prodi_id": "INF",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Martinez",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.58,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-05"
+    },
+    {
+      "nim": "SIS23001",
+      "user_id": "u-std-SIS23001",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Castillo",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.35,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS23002",
+      "user_id": "u-std-SIS23002",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Sutton",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.38,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS23003",
+      "user_id": "u-std-SIS23003",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Bradley",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.85,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS23004",
+      "user_id": "u-std-SIS23004",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Nguyen",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.37,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS23005",
+      "user_id": "u-std-SIS23005",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 7,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2023,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Gardner",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.59,
+      "total_sks": 84,
+      "total_sks_lulus": 72,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS24001",
+      "user_id": "u-std-SIS24001",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Peck",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.69,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS24002",
+      "user_id": "u-std-SIS24002",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Dixon",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.5,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS24003",
+      "user_id": "u-std-SIS24003",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Mason",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.41,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS24004",
+      "user_id": "u-std-SIS24004",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Jensen",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.83,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS24005",
+      "user_id": "u-std-SIS24005",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 5,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2024,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Nelson",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.32,
+      "total_sks": 60,
+      "total_sks_lulus": 48,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS25001",
+      "user_id": "u-std-SIS25001",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Lucas",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.7,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS25002",
+      "user_id": "u-std-SIS25002",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Fields",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.63,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS25003",
+      "user_id": "u-std-SIS25003",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Riley",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.64,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS25004",
+      "user_id": "u-std-SIS25004",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Gray",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.26,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS25005",
+      "user_id": "u-std-SIS25005",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 3,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2025,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Lowe",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.38,
+      "total_sks": 36,
+      "total_sks_lulus": 24,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS26001",
+      "user_id": "u-std-SIS26001",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Shelton",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.66,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS26002",
+      "user_id": "u-std-SIS26002",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Myers",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.51,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS26003",
+      "user_id": "u-std-SIS26003",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Tucker",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.64,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS26004",
+      "user_id": "u-std-SIS26004",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Kennedy",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.59,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    },
+    {
+      "nim": "SIS26005",
+      "user_id": "u-std-SIS26005",
+      "fakultas_id": "FIK",
+      "prodi_id": "SIS",
+      "semester_aktif": 1,
+      "tahun_akademik": "2026/2027",
+      "status_akademik": "AKTIF",
+      "tahun_masuk": 2026,
+      "status_pembayaran_ukt": "LUNAS",
+      "nama_ortu": "Bapak Peck",
+      "pekerjaan_ortu": "Swasta",
+      "ipk_kumulatif": 3.9,
+      "total_sks": 12,
+      "total_sks_lulus": 0,
+      "catatan_pelanggaran_etik": false,
+      "status_disiplin_kampus": true,
+      "dosen_pembimbing_akademik_id": "l-11"
+    }
+  ],
+  "student_courses": [
+    {
+      "id": 1,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 2,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 3,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 4,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 5,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 6,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 7,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 8,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 9,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 10,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 11,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 12,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 13,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 14,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 15,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 16,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-601",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 17,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-602",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 18,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-603",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 19,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-701",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 20,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-702",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 21,
+      "student_id": "INF23001",
+      "course_id": "MK-INF-703",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 22,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 23,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 24,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 25,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 26,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 27,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 28,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 29,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 30,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 31,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 32,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 33,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 34,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 35,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 36,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 37,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-601",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 38,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-602",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 39,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-603",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 40,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-701",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 41,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-702",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 42,
+      "student_id": "INF23002",
+      "course_id": "MK-INF-703",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 43,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 44,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 45,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 46,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 47,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 48,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 49,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 50,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 51,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 52,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 53,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 54,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 55,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 56,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 57,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 58,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-601",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 59,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-602",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 60,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-603",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 61,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-701",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 62,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-702",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 63,
+      "student_id": "INF23003",
+      "course_id": "MK-INF-703",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 64,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 65,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 66,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 67,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 68,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 69,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 70,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 71,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 72,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 73,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 74,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 75,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 76,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 77,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 78,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 79,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-601",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 80,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-602",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 81,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-603",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 82,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-701",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 83,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-702",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 84,
+      "student_id": "INF23004",
+      "course_id": "MK-INF-703",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 85,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 86,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 87,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 88,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 89,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 90,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 91,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 92,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 93,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 94,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 95,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 96,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 97,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 98,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 99,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 100,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-601",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 101,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-602",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 102,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-603",
+      "lecturer_id": "l-05",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 103,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-701",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 104,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-702",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 105,
+      "student_id": "INF23005",
+      "course_id": "MK-INF-703",
+      "lecturer_id": "l-05",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 106,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 107,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 108,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 109,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 110,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 111,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 112,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 113,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 114,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 115,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 116,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 117,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 118,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 119,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 120,
+      "student_id": "INF24001",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 121,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 122,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 123,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 124,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 125,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 126,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 127,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 128,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 129,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 130,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 131,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 132,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 133,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 134,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 135,
+      "student_id": "INF24002",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 136,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 137,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 138,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 139,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 140,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 141,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 142,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 143,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 144,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 145,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 146,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 147,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 148,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 149,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 150,
+      "student_id": "INF24003",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 151,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 152,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 153,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 154,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 155,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 156,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 157,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 158,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 159,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 160,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 161,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 162,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 163,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 164,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 165,
+      "student_id": "INF24004",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 166,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 167,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 168,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 169,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 170,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 171,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 172,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 173,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 174,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 175,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-401",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 176,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-402",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 177,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-403",
+      "lecturer_id": "l-05",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 178,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-501",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 179,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-502",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 180,
+      "student_id": "INF24005",
+      "course_id": "MK-INF-503",
+      "lecturer_id": "l-05",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 181,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 182,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 183,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 184,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 185,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 186,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 187,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 188,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 189,
+      "student_id": "INF25001",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 190,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 191,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 192,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 193,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 194,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 195,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 196,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 197,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 198,
+      "student_id": "INF25002",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 199,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 200,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 201,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 202,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 203,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 204,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 205,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 206,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 207,
+      "student_id": "INF25003",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 208,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 209,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 210,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 211,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 212,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 213,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 214,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 215,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 216,
+      "student_id": "INF25004",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 217,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 218,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 219,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 220,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-201",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 221,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-202",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 222,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-203",
+      "lecturer_id": "l-05",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 223,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-301",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 224,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-302",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 225,
+      "student_id": "INF25005",
+      "course_id": "MK-INF-303",
+      "lecturer_id": "l-05",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 226,
+      "student_id": "INF26001",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 227,
+      "student_id": "INF26001",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 228,
+      "student_id": "INF26001",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 229,
+      "student_id": "INF26002",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 230,
+      "student_id": "INF26002",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 231,
+      "student_id": "INF26002",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 232,
+      "student_id": "INF26003",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 233,
+      "student_id": "INF26003",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 234,
+      "student_id": "INF26003",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 235,
+      "student_id": "INF26004",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 236,
+      "student_id": "INF26004",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 237,
+      "student_id": "INF26004",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 238,
+      "student_id": "INF26005",
+      "course_id": "MK-INF-101",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 239,
+      "student_id": "INF26005",
+      "course_id": "MK-INF-102",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 240,
+      "student_id": "INF26005",
+      "course_id": "MK-INF-103",
+      "lecturer_id": "l-05",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 241,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 242,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 243,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 244,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 245,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 246,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 247,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 248,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 249,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 250,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 251,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 252,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 253,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 254,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 255,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 256,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-601",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 257,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-602",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 258,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-603",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 259,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-701",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 260,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-702",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 261,
+      "student_id": "SIS23001",
+      "course_id": "MK-SIS-703",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 262,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 263,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 264,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 265,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 266,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 267,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 268,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 269,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 270,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 271,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 272,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 273,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 274,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 275,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 276,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 277,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-601",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 278,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-602",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 279,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-603",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 280,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-701",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 281,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-702",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 282,
+      "student_id": "SIS23002",
+      "course_id": "MK-SIS-703",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 283,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 284,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 285,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 286,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 287,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 288,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 289,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 290,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 291,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 292,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 293,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 294,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 295,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 296,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 297,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 298,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-601",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 299,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-602",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 300,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-603",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 301,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-701",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 302,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-702",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 303,
+      "student_id": "SIS23003",
+      "course_id": "MK-SIS-703",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 304,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 305,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 306,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 307,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 308,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 309,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 310,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 311,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 312,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 313,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 314,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 315,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 316,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 317,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 318,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 319,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-601",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 320,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-602",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 321,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-603",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 322,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-701",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 323,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-702",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 324,
+      "student_id": "SIS23004",
+      "course_id": "MK-SIS-703",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 325,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 326,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 327,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 328,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 329,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 330,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2023/2024",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 331,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 332,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 333,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 334,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 335,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 336,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 337,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 338,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 339,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 340,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-601",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 341,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-602",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 342,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-603",
+      "lecturer_id": "l-11",
+      "semester_taken": 6,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 343,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-701",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 344,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-702",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 345,
+      "student_id": "SIS23005",
+      "course_id": "MK-SIS-703",
+      "lecturer_id": "l-11",
+      "semester_taken": 7,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 346,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 347,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 348,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 349,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 350,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 351,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 352,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 353,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 354,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 355,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 356,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 357,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 358,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 359,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 360,
+      "student_id": "SIS24001",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 361,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 362,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 363,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 364,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 365,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 366,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 367,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 368,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 369,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 370,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 371,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 372,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 373,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 374,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 375,
+      "student_id": "SIS24002",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 376,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 377,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 378,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 379,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 380,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 381,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 382,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 383,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 384,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 385,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 386,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 387,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 388,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 389,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 390,
+      "student_id": "SIS24003",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 391,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 392,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 393,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 394,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 395,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 396,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 397,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 398,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 399,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 400,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 401,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 402,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 403,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 404,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 405,
+      "student_id": "SIS24004",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 406,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 407,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 408,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 409,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 410,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 411,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2024/2025",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 412,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 413,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 414,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 415,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-401",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 416,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-402",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 417,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-403",
+      "lecturer_id": "l-11",
+      "semester_taken": 4,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 418,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-501",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 419,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-502",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 420,
+      "student_id": "SIS24005",
+      "course_id": "MK-SIS-503",
+      "lecturer_id": "l-11",
+      "semester_taken": 5,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 421,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.0
+    },
+    {
+      "id": 422,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 423,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 424,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 425,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 426,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 427,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 428,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 429,
+      "student_id": "SIS25001",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 430,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 431,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 432,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 433,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.3
+    },
+    {
+      "id": 434,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 435,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 436,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 437,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 438,
+      "student_id": "SIS25002",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 439,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 440,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 441,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 442,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 443,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 444,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 445,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 446,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 447,
+      "student_id": "SIS25003",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 448,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 449,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 450,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 451,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 452,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.3
+    },
+    {
+      "id": 453,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.0
+    },
+    {
+      "id": 454,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 455,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 456,
+      "student_id": "SIS25004",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 457,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 458,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 459,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 3.7
+    },
+    {
+      "id": 460,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-201",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 461,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-202",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 2.7
+    },
+    {
+      "id": 462,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-203",
+      "lecturer_id": "l-11",
+      "semester_taken": 2,
+      "tahun_akademik": "2025/2026",
+      "status_krs": "LULUS",
+      "ip": 4.0
+    },
+    {
+      "id": 463,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-301",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 464,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-302",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 465,
+      "student_id": "SIS25005",
+      "course_id": "MK-SIS-303",
+      "lecturer_id": "l-11",
+      "semester_taken": 3,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 466,
+      "student_id": "SIS26001",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 467,
+      "student_id": "SIS26001",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 468,
+      "student_id": "SIS26001",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 469,
+      "student_id": "SIS26002",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 470,
+      "student_id": "SIS26002",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 471,
+      "student_id": "SIS26002",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 472,
+      "student_id": "SIS26003",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 473,
+      "student_id": "SIS26003",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 474,
+      "student_id": "SIS26003",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 475,
+      "student_id": "SIS26004",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 476,
+      "student_id": "SIS26004",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 477,
+      "student_id": "SIS26004",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 478,
+      "student_id": "SIS26005",
+      "course_id": "MK-SIS-101",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 479,
+      "student_id": "SIS26005",
+      "course_id": "MK-SIS-102",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    },
+    {
+      "id": 480,
+      "student_id": "SIS26005",
+      "course_id": "MK-SIS-103",
+      "lecturer_id": "l-11",
+      "semester_taken": 1,
+      "tahun_akademik": "2026/2027",
+      "status_krs": "AMBIL",
+      "ip": null
+    }
+  ],
+  "surat_types": [
+    {
+      "kode_surat": "SK-KUL",
+      "nama_surat": "Surat Keterangan Aktif Kuliah",
+      "kategori": "Keterangan",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SK-BEA",
+      "nama_surat": "Surat Keterangan Tidak Menerima Beasiswa",
+      "kategori": "Keterangan",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SP-TRA",
+      "nama_surat": "Surat Pengantar Transkip Nilai",
+      "kategori": "Pengantar",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SP-SKC",
+      "nama_surat": "Surat Pengantar SKCK",
+      "kategori": "Pengantar",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SI-SUR",
+      "nama_surat": "Surat Izin Survey dan Observasi",
+      "kategori": "Izin",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SP-TAS",
+      "nama_surat": "Surat Pengantar Riset Tugas Akhir",
+      "kategori": "Pengantar",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SP-MAG",
+      "nama_surat": "Surat Pengantar Magang",
+      "kategori": "Pengantar",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SI-MAG",
+      "nama_surat": "Surat Izin Magang",
+      "kategori": "Izin",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SR-BEA",
+      "nama_surat": "Surat Rekomendasi Beasiswa",
+      "kategori": "Rekomendasi",
+      "is_auto_approval": true,
+      "template_path": ""
+    },
+    {
+      "kode_surat": "SR-MAG",
+      "nama_surat": "Surat Rekomendasi Magang",
+      "kategori": "Rekomendasi",
+      "is_auto_approval": true,
+      "template_path": ""
+    }
+  ]
+}
