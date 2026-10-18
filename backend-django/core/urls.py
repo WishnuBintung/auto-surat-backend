@@ -16,9 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('surat/', include('surat.urls')),
     path('accounts/', include('accounts.urls')),  
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    
+    # 2. Tampilan Swagger UI (Interaktif untuk Frontend)
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    
+    # 3. (Opsional) Tampilan alternatif Redoc
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
