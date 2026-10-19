@@ -5,17 +5,30 @@ from rest_framework import status, permissions
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.exceptions import TokenError
+from drf_spectacular.utils import extend_schema
 
 from .models import User, Student, Lecturer
-from .serializers import LoginSerializer
+from .serializers import (LoginSerializer, StandardErrorResponseSerializer, LoginResponseSuccessSerializer)
 
 class LoginAPIView(APIView):
     permission_classes = [permissions.AllowAny]
-
+    @extend_schema(
+        request=LoginSerializer,
+        responses={
+            200: LoginResponseSuccessSerializer,
+            400: StandardErrorResponseSerializer, # Pakai yang global!
+            401: StandardErrorResponseSerializer, # Pakai yang global!
+        }
+    )
+    
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                "status": "error",
+                "message": "Validasi gagal",
+                "errors": serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
 
         nip_nim = serializer.validated_data['nip_nim']
         password = serializer.validated_data['password']
@@ -24,7 +37,13 @@ class LoginAPIView(APIView):
         user_obj = authenticate(username=nip_nim, password=password)
 
         if user_obj is None:
-            return Response({"error": "NIP/NIM atau password salah."}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({
+                "status": "error",
+                "message": "Otentikasi gagal",
+                "errors": {
+                    "non_field_errors": ["Username atau password salah."]
+                }
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
         # Generate token secara manual dengan menyimpan ID user di dalam payload (claims)
         refresh = RefreshToken()
