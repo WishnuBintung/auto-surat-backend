@@ -8,7 +8,13 @@ from rest_framework_simplejwt.exceptions import TokenError
 from drf_spectacular.utils import extend_schema
 
 from .models import User, Student, Lecturer
-from .serializers import (LoginSerializer, StandardErrorResponseSerializer, LoginResponseSuccessSerializer)
+from .serializers import (
+    LoginSerializer,
+    StandardErrorResponseSerializer,
+    LoginResponseSuccessSerializer,
+    GetMeResponseSerializer,
+    LogoutRequestSerializer,
+    LogoutSuccessSerializer)
 
 class LoginAPIView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -68,7 +74,14 @@ class GetMeAPIView(APIView):
     Endpoint Get Me menggunakan autentikasi standar JWT Bearer Token.
     """
     permission_classes = [permissions.IsAuthenticated]
-
+    @extend_schema(
+            request=GetMeResponseSerializer,
+            responses={
+                200: GetMeResponseSerializer,
+                400: StandardErrorResponseSerializer, # Pakai yang global!
+                401: StandardErrorResponseSerializer, # Pakai yang global!
+            }
+        )
     def get(self, request):
         # request.user otomatis diisi oleh SimpleJWT dari token yang dibawa di Header
         user_obj = request.user 
@@ -110,19 +123,48 @@ class LogoutAPIView(APIView):
     Body: { "refresh": "<refresh_token_anda>" }
     """
     permission_classes = [permissions.IsAuthenticated]
+    @extend_schema(
+            request=LogoutRequestSerializer,
+            responses={
+                200: LogoutSuccessSerializer,
+                400: StandardErrorResponseSerializer, # Pakai yang global!
+                401: StandardErrorResponseSerializer, # Pakai yang global!
+            }
+        )
 
     def post(self, request):
         try:
             refresh_token = request.data.get("refresh")
             if not refresh_token:
-                return Response({"error": "Refresh token wajib disertakan."}, status=status.HTTP_400_BAD_REQUEST)
-            
+                return Response({
+                    "status": "error",
+                    "message": "Otentikasi token gagal",
+                    "errors": {
+                        "refresh": ["Refresh token wajib disertakan."]
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
             # Masukkan token ke dalam blacklist
             token = RefreshToken(refresh_token)
             token.blacklist()
 
-            return Response({"message": "Logout berhasil. Sesi telah diakhiri."}, status=status.HTTP_200_OK)
+            return Response({
+                "status": "success",
+                "message": "Logout berhasil. Sesi telah diakhiri."
+            }, status=status.HTTP_200_OK)
         except TokenError:
-            return Response({"error": "Token tidak valid atau sudah kedaluwarsa."}, status=status.HTTP_400_BAD_REQUEST)
+           return Response({
+                "status": "error",
+                "message": "Otentikasi token gagal",
+                "errors": {
+                    "refresh": ["Token tidak valid atau sudah kedaluwarsa."]
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                "status": "error",
+                "message": "Terjadi kesalahan.",
+                "errors": {
+                    "refresh": [str(e)]
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
