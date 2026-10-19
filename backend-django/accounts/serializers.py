@@ -22,7 +22,7 @@ class LoginResponseSuccessSerializer(serializers.Serializer):
     message = serializers.CharField(default="Login berhasil")
     access = serializers.CharField(default="eyJhbGciOi...")
     refresh = serializers.CharField(default="eyJhbGciOi...")
-    user = UserInfoSerializer() # Memanggil serializer user di dalam sukses
+    user = UserInfoSerializer() 
 class GetMeResponseSerializer(serializers.Serializer):
     id = serializers.IntegerField(default=1)
     nama = serializers.CharField(default="Budi Santoso")
