@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from accounts.authentication import CustomJWTAuthentication
 from rest_framework.parsers import MultiPartParser, FormParser
+from drf_spectacular.utils import extend_schema
 
 from .models import SuratType, SuratRequest, SuratApproval, TteSignature
 from accounts.models import Student, Lecturer
@@ -16,10 +17,11 @@ from .serializers import (
     SuratRequestDetailSerializer,
     SuratApprovalSerializer,
     SuratApprovalActionSerializer,
-    SuratRejectActionSerializer
+    SuratRejectActionSerializer,
+    SuratRequestSuccessResponseSerializer
 )
 from .services.workflow_service import process_surat_request, process_approval_action
-
+from .accounts.serializers import StandardErrorResponseSerializer
 
 class SuratTypeListAPIView(ListAPIView):
     """
@@ -39,12 +41,26 @@ class SuratRequestCreateAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]  
     parser_classes = [MultiPartParser, FormParser] # <--- Tambahkan parser ini!
-
+    @extend_schema(
+        summary="Ajukan Surat Baru (Mahasiswa)",
+        description="Digunakan mahasiswa untuk mengajukan permohonan pembuatan surat (otomatis/manual). Mendukung pengiriman file lampiran (multi-part form-data) dan payload dinamis.",
+        request=SuratRequestCreateSerializer,
+        responses={
+            201: SuratRequestSuccessResponseSerializer, # Atau 200 tergantung return code service kamu
+            400: StandardErrorResponseSerializer,       # Validasi gagal / field kurang / logika bisnis gagal
+            403: StandardErrorResponseSerializer,       # Bukan akun mahasiswa
+            404: StandardErrorResponseSerializer        # Kode surat tidak ditemukan
+        }
+    )
+    
     def post(self, request):
         serializer = SuratRequestCreateSerializer(data=request.data, context={'request': request})
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return Response({
+                "status": "error",
+                "message": "Validasi gagal",
+                "errors": serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
         # Ambil data tervalidasi
         kode_surat_str = serializer.validated_data['kode_surat']
         payload_data = serializer.validated_data['payload_data']
@@ -54,12 +70,19 @@ class SuratRequestCreateAPIView(APIView):
         try:
             student_obj = request.user.student_profile # Mengikuti related_name OneToOne
         except Student.DoesNotExist:
-            return Response({"error": "Akun Anda bukan akun mahasiswa yang terdaftar."}, status=status.HTTP_403_FORBIDDEN)
-
+            return Response({
+                "status": "error",
+                "message": "Validasi gagal",
+                "errors": "bukan akun mahasiswa. Hanya mahasiswa yang dapat mengajukan surat."
+            }, status=status.HTTP_400_BAD_REQUEST)
         try:
             surat_type = SuratType.objects.get(kode_surat=kode_surat_str)
         except SuratType.DoesNotExist:
-            return Response({"error": "Jenis surat tidak ditemukan."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({
+                "status": "error",
+                "message": "Validasi gagal",
+                "errors": "Jenis surat tidak ditemukan."
+            }, status=status.HTTP_404_NOT_FOUND)
 
         # Jalankan service layer workflow
         result, http_code = process_surat_request(

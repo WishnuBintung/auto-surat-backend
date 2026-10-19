@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Surat Pengantar Magang</title>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; font-size: 12pt; line-height: 1.5; padding: 20px; color: #000; }
+        
+        /* Style khusus untuk tabel kop surat */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header-table td {
+            vertical-align: middle;
+        }
+        .logo-cell {
+            width: 15%;
+            text-align: left;
+        }
+        .logo-img {
+            width: 80px; /* Sesuaikan ukuran lebar logo */
+            height: auto;
+        }
+        .text-cell {
+            width: 85%;
+            text-align: center;
+        }
+        .text-cell h3, .text-cell h4, .text-cell p {
+            margin: 2px 0;
+        }
+
+        .content { margin-top: 20px; text-align: justify; }
+        .signature { margin-top: 50px; float: right; text-align: center; width: 250px; }
+    </style>
+</head>
+<body>
+
+    <!-- KOP SURAT DENGAN LOGO DI SAMPING -->
+    <table class="header-table">
+        <tr>
+            <td class="logo-cell">
+                <!-- Gunakan path relatif statis Django atau URL gambar -->
+                <img src="{{ ../univ_logos.png }}" alt="Logo Universitas" class="logo-img">
+            </td>
+            <td class="text-cell">
+                <h3>KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h3>
+                <h3>UNIVERSITAS CONTOH INDONESIA</h3>
+                <h4>FAKULTAS ILMU KOMPUTER</h4>
+                <p style="font-size: 10pt; font-style: italic;">Jalan Telekomunikasi No. 1, Bandung | Email: info@contoh.ac.id</p>
+            </td>
+        </tr>
+    </table>
+
+    <div style="text-align: center; margin: 20px 0;">
+        <h4 style="margin: 0; text-decoration: underline;">SURAT KETERANGAN AKTIF KULIAH</h4>
+        <p style="margin: 5px 0;">Nomor: {{ nomor_surat }}</p>
+    </div>
+
+    <div class="content">
+        <p>Yang bertanda tangan di bawah ini pimpinan Fakultas Ilmu Komputer Universitas Contoh Indonesia, menerangkan bahwa:</p>
+        
+        <div class="student-info">
+            <table>
+                <tr><td style="width: 140px;">Nama</td><td>: <b>{{ nama_mahasiswa }}</b></td></tr>
+                <tr><td>NIM</td><td>: {{ nim }}</td></tr>
+                <tr><td>Program Studi</td><td>: {{ program_studi }}</td></tr>
+                <tr><td>Semester</td><td>: {{ semester_aktif }}</td></tr>
+            </table>
+        </div>
+
+        <p>Adalah benar mahasiswa aktif yang terdaftar pada semester {{ semester_aktif }} tahun akademik {{ tahun_akademik }}. Surat keterangan ini diberikan untuk keperluan: <b>{{ payload_data.keperluan }}</b>.</p>
+        
+        <p>Demikian surat keterangan ini dibuat dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya.</p>
+    </div>
+
+    <div class="signature">
+        <p>Bandung, {{ tanggal_surat }}</p>
+        <p>Dekan / Wakil Dekan,</p>
+        <br><br><br>
+        <p><b>Dr. Pejabat Kampus, M.T.</b></p>
+    </div>
+</body>
+</html>

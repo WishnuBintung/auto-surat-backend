@@ -27,11 +27,6 @@ class SuratRequestCreateSerializer(serializers.Serializer):
         allow_empty=True
     )
 
-    # def validate_kode_surat(self, value):
-    #     if not SuratType.objects.filter(kode_surat=value).exists():
-    #         raise serializers.ValidationError(f"Kode surat '{value}' tidak terdaftar di sistem.")
-    #     return value
-
     def validate(self, data):
         kode_surat = data.get('kode_surat')
         payload = data.get('payload_data', {})
@@ -42,20 +37,6 @@ class SuratRequestCreateSerializer(serializers.Serializer):
         except SuratType.DoesNotExist:
             raise serializers.ValidationError(f"Jenis surat dengan kode '{kode_surat}' tidak ditemukan.")
 
-        # 2. DINAMIS VALIDATION: Cek required_payload_fields dari database
-        # Asumsi format required_payload_fields di database adalah list of string, misal: ["nama_perusahaan", "durasi_bulan"]
-        # required_fields = surat_type.required_payload_fields or []
-        
-        # missing_fields = []
-        # for field in required_fields:
-        #     if field not in payload or not payload.get(field):
-        #         missing_fields.append(str(field))
-        
-        # if missing_fields:
-        #     raise serializers.ValidationError({
-        #         "payload_data": f"Field berikut wajib diisi untuk pengajuan {kode_surat}: {', '.join(missing_fields)}"
-        #     })
-        # Misal required_fields mengambil dari surat_type.required_payload_fields (yang isinya list of dict)
         required_fields = surat_type.required_payload_fields 
         missing_fields = []
 
@@ -235,3 +216,9 @@ class SuratRequestDetailSerializer(serializers.ModelSerializer):
             'signatures',
             'audit_logs'
         ]
+        
+# serializers.py
+class SuratRequestSuccessResponseSerializer(serializers.Serializer):
+    status = serializers.CharField(default="success")
+    message = serializers.CharField(default="Pengajuan surat berhasil dibuat.")
+    data = serializers.DictField(default={"request_id": 123, "nomor_surat": "B/123/UNIV/2026"})
