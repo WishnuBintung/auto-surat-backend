@@ -73,6 +73,7 @@ class SuratNumberCounter(models.Model):
 
 
 class SuratRequest(models.Model):
+    Status = SuratStatus
     StatusChoices = SuratStatus
 
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='requests')
@@ -106,6 +107,7 @@ class SuratRequest(models.Model):
 
 
 class SuratApproval(models.Model):
+    Status = ApprovalStatus
     StatusChoices = ApprovalStatus
 
     surat_request = models.ForeignKey(SuratRequest, on_delete=models.CASCADE, related_name='approvals')

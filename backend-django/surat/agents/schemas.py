@@ -1,13 +1,12 @@
 from datetime import date
-from typing import Any, Dict, List, Type
+from typing import Any, Dict, List, Type, Union
 from pydantic import BaseModel, ConfigDict, Field, create_model, field_validator, model_validator
 
 # SARAN PERBAIKAN ARSITEKTURAL:
-# 1. Atribut `ai_original_draft` telah diubah dari Optional menjadi Required (...)
-#    agar LLM tidak pernah mengembalikan nilai null saat menyusun naskah surat.
-# 2. Ditambahkan fungsi `build_dynamic_payload_schema` menggunakan `pydantic.create_model`
-#    agar modul AI kompatibel dengan kolom `SuratType.required_payload_fields` di database
-#    tanpa harus menulis ulang kode Python setiap kali ada penambahan jenis surat baru.
+# 1. Fungsi `build_dynamic_payload_schema` telah direvisi agar menerima `List[Dict[str, str]]`
+#    sesuai struktur aktual `required_field_surat.json` dan memetakan tipe "date" ke `datetime.date`.
+# 2. Struktur komposisi bersarang (`extracted_payload` dan `evaluation`) dipertahankan
+#    karena sangat efektif memisahkan konteks ekstraksi data dan refleksi diri pada LLM.
 
 
 class SuratMagangPayloadSchema(BaseModel):
@@ -99,8 +98,6 @@ class SelfEvaluationSchema(BaseModel):
 class AgentSuratDraftOutputSchema(BaseModel):
     """
     Skema Structured Output utama yang dikembalikan oleh Surat Agent pada Fase 1.
-    Menggunakan komposisi terstruktur (bukan multiple inheritance) untuk menjaga
-    kompatibilitas penuh dengan JSON Schema parser pada OpenAI dan Gemini API.
     """
 
     model_config = ConfigDict(
@@ -135,19 +132,38 @@ class AgentSuratDraftOutputSchema(BaseModel):
         }
 
 
+# Alias untuk menjaga kompatibilitas impor modul
+AgentLetterOutputSchema = AgentSuratDraftOutputSchema
+
+
 def build_dynamic_payload_schema(
-    schema_name: str, required_fields: Dict[str, str]
+    schema_name: str, required_fields: Union[List[Dict[str, str]], Dict[str, str]]
 ) -> Type[BaseModel]:
     """
-    Factory function untuk membangun skema Pydantic secara dinamis dari kolom
-    `SuratType.required_payload_fields` di database jika jenis surat berbeda dari surat magang.
+    Factory function untuk membangun skema Pydantic secara dinamis baik dari struktur list
+    pada `required_field_surat.json` maupun dictionary dari database.
     """
     field_definitions: Dict[str, Any] = {}
-    for field_name, field_description in required_fields.items():
-        field_definitions[field_name] = (
-            str,
-            Field(..., min_length=1, description=str(field_description)),
-        )
+
+    if isinstance(required_fields, list):
+        for item in required_fields:
+            field_name = item["field"]
+            field_type_str = item.get("type", "string")
+            desc = item.get("description") or item.get("label", "")
+
+            if field_type_str == "date":
+                field_definitions[field_name] = (date, Field(..., description=desc))
+            else:
+                field_definitions[field_name] = (
+                    str,
+                    Field(..., min_length=1, description=desc),
+                )
+    elif isinstance(required_fields, dict):
+        for field_name, field_description in required_fields.items():
+            field_definitions[field_name] = (
+                str,
+                Field(..., min_length=1, description=str(field_description)),
+            )
 
     return create_model(
         schema_name,
