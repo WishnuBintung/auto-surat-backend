@@ -1,4 +1,3 @@
-# apps/surat/serializers.py
 import json
 from rest_framework import serializers
 from .models import (
@@ -15,16 +14,14 @@ from .services.validators import run_validators
 # 1. Pisahkan kontrak serializer untuk skema dokumentasi OpenAPI (`drf-spectacular`)
 #    secara tegas agar setiap endpoint `APIView` memiliki definisi request dan response
 #    yang tervalidasi tanpa memicu error `unable to guess serializer`.
-# 2. `SuratRequestCreateSerializer` kini mendukung alur Agentic AI Fase 1 melalui atribut
+# 2. `SuratRequestCreateSerializer` mendukung alur Agentic AI Fase 1 melalui atribut
 #    `user_prompt_context` (serta alias `konteks`), sehingga validasi sinkron tidak memblokir
 #    permohonan berbasis bahasa alami sebelum `SuratDraftingAgent` mengekstrak `payload_data`
 #    di latar belakang.
-# 3. Pada implementasi Fase 2 nanti, tambahkan serializer khusus untuk menerima koreksi
-#    `final_approved_content` dari Admin saat menyetujui draf yang berstatus `PENDING_APPROVAL`.
+# 3. `SuratApprovalActionSerializer` dan `LecturerApprovalActionRequestSerializer`
+#    menerima koreksi `final_approved_content` serta pilihan `final_status` (`SENT` / `PRINTED`)
+#    dari Dosen/Pejabat saat menyetujui draf yang berstatus `PENDING_APPROVAL`.
 
-# ==============================================================================
-# 1. SERIALIZERS UNTUK INPUT (WRITE / CREATE / ACTION)
-# ==============================================================================
 
 class SuratRequestCreateSerializer(serializers.Serializer):
     """
@@ -57,7 +54,6 @@ class SuratRequestCreateSerializer(serializers.Serializer):
         kode_surat = data.get('kode_surat')
         raw_payload = data.get('payload_data')
 
-        # Normalisasi konteks prompt bahasa alami dari berbagai kemungkinan key input
         prompt_candidates = [
             data.get('user_prompt_context'),
             data.get('konteks'),
@@ -105,7 +101,6 @@ class SuratRequestCreateSerializer(serializers.Serializer):
         data['user_prompt_context'] = resolved_prompt
         data['payload_data'] = payload
 
-        # Validasi kelayakan akademik mahasiswa apabila profil mahasiswa tersedia pada request
         request = self.context.get('request')
         if not request or not request.user.is_authenticated:
             raise serializers.ValidationError("Autentikasi diperlukan untuk mengajukan surat.")
@@ -143,6 +138,7 @@ class SuratRequestCreateSerializer(serializers.Serializer):
 
         return data
 
+
 class SuratApprovalActionSerializer(serializers.Serializer):
     """Serializer untuk input catatan opsional dan teks final saat Dosen melakukan APPROVE"""
     catatan = serializers.CharField(required=False, allow_blank=True, allow_null=True)
@@ -164,10 +160,6 @@ class SuratRejectActionSerializer(serializers.Serializer):
     """Serializer untuk input alasan wajib saat Dosen melakukan REJECT"""
     alasan_penolakan = serializers.CharField(required=True, allow_blank=False)
 
-
-# ==============================================================================
-# 2. SERIALIZERS UNTUK OUTPUT (READ / RESPONSE / DETAIL)
-# ==============================================================================
 
 class SuratTypeSerializer(serializers.ModelSerializer):
     """Serializer output untuk master data jenis surat (misal untuk pilihan dropdown frontend)"""
@@ -243,7 +235,7 @@ class SuratRequestListSerializer(serializers.ModelSerializer):
 
 class SuratRequestDetailSerializer(serializers.ModelSerializer):
     """
-    Serializer output detail lengkap berikut seluruh relasi bersarang (nested) 
+    Serializer output detail lengkap berikut seluruh relasi bersarang (nested)
     seperti lampiran, timeline approval, TTE, dan audit logs.
     """
     nama_surat = serializers.CharField(source='kode_surat.nama_surat', read_only=True)
@@ -251,8 +243,7 @@ class SuratRequestDetailSerializer(serializers.ModelSerializer):
     nim_mahasiswa = serializers.CharField(source='student.nim', read_only=True)
     prodi_mahasiswa = serializers.CharField(source='student.prodi.nama_prodi', read_only=True)
     fakultas_mahasiswa = serializers.CharField(source='student.fakultas.nama_fakultas', read_only=True)
-    
-    # Nested relasi menggunakan related_name dari models_3.py kita
+
     attachments = SuratAttachmentSerializer(many=True, read_only=True)
     approvals = SuratApprovalSerializer(many=True, read_only=True)
     signatures = TteSignatureSerializer(many=True, read_only=True)
@@ -284,8 +275,8 @@ class SuratRequestDetailSerializer(serializers.ModelSerializer):
             'signatures',
             'audit_logs'
         ]
-        
-# serializers.py
+
+
 class SuratRequestSuccessResponseSerializer(serializers.Serializer):
     status = serializers.CharField(default="success")
     message = serializers.CharField(default="Pengajuan surat berhasil dibuat.")

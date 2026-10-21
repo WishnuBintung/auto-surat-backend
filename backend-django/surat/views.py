@@ -1,4 +1,3 @@
-# apps/surat/views.py
 import logging
 import threading
 from typing import Any, Dict, Optional
@@ -85,7 +84,7 @@ def _mark_surat_request_failed(
 ) -> None:
     """
     Memperbarui status SuratRequest menjadi FAILED dan mencatat alasan kegagalan
-    apabila eksekusi SuratDraftingAgent di latar belakang mengalami kendala.
+    apabila eksekusi agen atau pipeline di latar belakang mengalami kendala.
     """
     try:
         surat_req = SuratRequest.objects.filter(pk=surat_request_id).first()
@@ -134,7 +133,6 @@ def _execute_drafting_agent_worker(
             student_metadata=student_metadata,
         )
 
-        # Konversi hasil Structured Output Pydantic yang valid ke dictionary murni
         if hasattr(draft_output, "to_payload_dict") and callable(draft_output.to_payload_dict):
             structured_payload: Dict[str, Any] = draft_output.to_payload_dict()
         else:
@@ -239,7 +237,6 @@ def _execute_approval_pipeline_worker(
             else None
         )
 
-        # 1. Jalankan pipeline eksekusi alat (Nomor Surat, TTE QR Code, PDF Cloudinary)
         active_tools = (
             execution_tools if execution_tools is not None else SuratExecutionTools()
         )
@@ -258,9 +255,8 @@ def _execute_approval_pipeline_worker(
             pipeline_result.file_pdf_url,
         )
 
-        # 2. Jalankan Agentic Memory Loop (diffing ai_original_draft vs final_approved_content)
-        #    Kegagalan non-kritis pada pembelajaran memori tidak boleh membatalkan surat
-        #    resmi yang sudah terbit dan berstatus SENT / PRINTED.
+        # Kegagalan non-kritis pada pembelajaran memori tidak boleh membatalkan surat
+        # resmi yang sudah terbit dan berstatus SENT / PRINTED.
         try:
             active_memory_agent = (
                 memory_agent if memory_agent is not None else AgenticMemoryAgent()
@@ -365,7 +361,6 @@ class SuratRequestCreateAPIView(APIView):
         },
     )
     def post(self, request):
-        # 1. Pastikan user yang login adalah mahasiswa (Student)
         try:
             student_obj = request.user.student_profile
         except (Student.DoesNotExist, AttributeError):
@@ -378,7 +373,6 @@ class SuratRequestCreateAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # 2. Pastikan kode_surat terdaftar pada tabel SuratType apabila dikirimkan
         raw_kode_surat = request.data.get("kode_surat")
         if isinstance(raw_kode_surat, str) and raw_kode_surat.strip():
             try:
@@ -395,7 +389,6 @@ class SuratRequestCreateAPIView(APIView):
         else:
             surat_type = None
 
-        # 3. Validasi input dan kelayakan akademik melalui serializer
         serializer = SuratRequestCreateSerializer(
             data=request.data,
             context={"request": request},
@@ -427,8 +420,8 @@ class SuratRequestCreateAPIView(APIView):
         user_prompt_context = serializer.validated_data.get("user_prompt_context", "")
         initial_payload = serializer.validated_data.get("payload_data") or {}
 
-        # 4. Buat rekam data awal SuratRequest dengan status SUBMITTED (Pra-Drafting)
-        #    State Pausing: JANGAN buat Nomor Surat, TTE, QR Code, atau unggah Cloudinary.
+        # State Pausing: Buat rekam data awal dengan status SUBMITTED tanpa memicu
+        # pembuatan Nomor Surat, TTE, QR Code, atau unggahan Cloudinary.
         surat_req = SuratRequest.objects.create(
             student=student_obj,
             kode_surat=surat_type,
@@ -443,7 +436,6 @@ class SuratRequestCreateAPIView(APIView):
             action="SURAT_SUBMITTED_FOR_AI_DRAFTING",
         )
 
-        # 5. Siapkan metadata mahasiswa untuk konteks penyusunan draf di latar belakang
         student_metadata = {
             "nim": student_obj.nim,
             "nama": getattr(student_obj.user, "nama", ""),
@@ -453,7 +445,6 @@ class SuratRequestCreateAPIView(APIView):
             "tahun_akademik": student_obj.tahun_akademik,
         }
 
-        # 6. Jalankan SuratDraftingAgent.draft_letter() secara asinkron di background thread
         worker_thread = threading.Thread(
             target=_execute_drafting_agent_worker,
             kwargs={
@@ -469,7 +460,6 @@ class SuratRequestCreateAPIView(APIView):
         SuratRequestCreateAPIView._last_worker_thread = worker_thread
         worker_thread.start()
 
-        # 7. Kembalikan respons HTTP 202 Accepted seketika tanpa menunggu LLM selesai
         return Response(
             {
                 "status": "success",
@@ -499,7 +489,6 @@ class SuratRequestListAPIView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        # Jika mahasiswa, tampilkan surat miliknya saja. Jika dosen/admin, bisa disesuaikan.
         if hasattr(user, 'student_profile'):
             return SuratRequest.objects.filter(student=user.student_profile).order_by('-created_at')
         return SuratRequest.objects.all().order_by('-created_at')
@@ -567,14 +556,13 @@ class LecturerApprovalActionAPIView(APIView):
         },
     )
     def post(self, request, approval_id):
-        action = request.data.get("action")  # 'APPROVE' atau 'REJECT'
+        action = request.data.get("action")
         if action not in ["APPROVE", "REJECT"]:
             return Response(
                 {"error": "Aksi harus bernilai 'APPROVE' atau 'REJECT'."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Pastikan user yang login adalah Dosen (Lecturer)
         try:
             lecturer_obj = request.user.lecturer_profile
         except (Lecturer.DoesNotExist, AttributeError):
@@ -602,8 +590,8 @@ class LecturerApprovalActionAPIView(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             catatan = serializer.validated_data["alasan_penolakan"]
 
-        # Cari entri SuratApproval; sediakan fallback defensif apabila approval_id merujuk
-        # langsung pada SuratRequest berstatus PENDING_APPROVAL yang belum memiliki baris approval
+        # Fallback defensif apabila approval_id merujuk langsung pada SuratRequest
+        # berstatus PENDING_APPROVAL yang belum memiliki baris SuratApproval
         try:
             approval_step = SuratApproval.objects.select_related(
                 "surat_request",
@@ -641,7 +629,6 @@ class LecturerApprovalActionAPIView(APIView):
                     status=status.HTTP_404_NOT_FOUND,
                 )
 
-        # Validasi kepemilikan approver dan status aktif
         if approval_step.approver != lecturer_obj:
             return Response(
                 {"error": "Anda tidak memiliki hak akses untuk menyetujui antrean ini."},
@@ -654,7 +641,6 @@ class LecturerApprovalActionAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Cabang REJECT: jalankan secara sinkron melalui workflow_service
         if action == "REJECT":
             result, http_code = process_approval_action(
                 approval_id=approval_step.id,
@@ -664,10 +650,8 @@ class LecturerApprovalActionAPIView(APIView):
             )
             return Response(result, status=http_code)
 
-        # Cabang APPROVE: simpan teks final dan evaluasi langkah persetujuan
         surat_req = approval_step.surat_request
 
-        # Normalisasi naskah final dari input request (atau fallback ke draf asli AI)
         for alias_key in ("final_approved_content", "approved_content", "final_content"):
             if not submitted_final_content:
                 candidate_val = request.data.get(alias_key)
@@ -722,8 +706,8 @@ class LecturerApprovalActionAPIView(APIView):
                 status=status.HTTP_200_OK,
             )
 
-        # Jika merupakan step terakhir: kunci final_approved_content dan status APPROVED,
-        # lalu delegasikan eksekusi alat (PDF, TTE, Cloudinary) & Memory Agent ke background thread
+        # Persetujuan tahap akhir: kunci final_approved_content dan delegasikan eksekusi
+        # alat (PDF, TTE, Cloudinary) serta Memory Agent ke background thread
         surat_req.final_approved_content = resolved_final_content
         surat_req.status = SuratStatus.APPROVED
         surat_req.save(update_fields=["final_approved_content", "status"])
@@ -767,7 +751,8 @@ class LecturerApprovalActionAPIView(APIView):
             },
             status=status.HTTP_200_OK,
         )
-    
+
+
 class SuratVerifyAPIView(APIView):
     """
     Endpoint publik untuk memverifikasi keaslian surat via QR Code / Token TTE.
@@ -788,7 +773,6 @@ class SuratVerifyAPIView(APIView):
     )
     def get(self, request, token):
         try:
-            # Cari tanda tangan digital berdasarkan token unik QR Code
             tte_sig = TteSignature.objects.select_related(
                 'surat_request',
                 'surat_request__student',
@@ -807,7 +791,6 @@ class SuratVerifyAPIView(APIView):
         surat_req = tte_sig.surat_request
         student = surat_req.student
 
-        # Susun data hasil verifikasi resmi
         return Response({
             "status": "VALID",
             "message": "Dokumen Surat ASLI dan terdaftar secara resmi di sistem kampus.",
@@ -828,4 +811,6 @@ class SuratVerifyAPIView(APIView):
                 "penandatangan": tte_sig.signer.user.nama if tte_sig.signer else "Sistem Otomatis Kampus",
                 "tanggal_ttd": tte_sig.created_at
             }
+        }, status=status.HTTP_200_OK)
+
         }, status=status.HTTP_200_OK)

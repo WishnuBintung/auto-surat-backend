@@ -449,7 +449,6 @@ class SuratDraftingAgent:
             exc, "status_code", None
         )
 
-        # 1. Deteksi Timeout (baik dari Python builtin, httpx/httpcore, maupun status 408/504)
         if (
             isinstance(exc, TimeoutError)
             or "timeout" in exc_type_name
@@ -469,7 +468,6 @@ class SuratDraftingAgent:
                 original_exception=exc,
             ) from exc
 
-        # 2. Deteksi Rate Limit / Quota Exhausted (HTTP 429 / RESOURCE_EXHAUSTED)
         if (
             status_code == 429
             or "429" in exc_message_lower
@@ -489,7 +487,6 @@ class SuratDraftingAgent:
                 original_exception=exc,
             ) from exc
 
-        # 3. Deteksi kesalahan autentikasi / konfigurasi API Key (HTTP 401/403)
         if status_code in (401, 403) or "api_key_invalid" in exc_message_lower:
             logger.error("Kredensial API Key LLM tidak valid atau ditolak: %s", exc_message)
             raise SuratAgentConfigurationError(
@@ -498,7 +495,6 @@ class SuratDraftingAgent:
                 original_exception=exc,
             ) from exc
 
-        # 4. Kesalahan layanan upstream lainnya
         logger.error(
             "Kegagalan upstream layanan LLM (model=%s, code=%s): %s",
             self.model_name,

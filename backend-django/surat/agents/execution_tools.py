@@ -421,16 +421,13 @@ class SuratExecutionTools:
             )
         )
 
-        # 1. Terbitkan Nomor Surat Resmi
         nomor_resmi = self.generate_official_number(surat_request)
 
-        # 2. Buat Tanda Tangan Elektronik (TTE) & URL QR Code Verifikasi
         tte_data = self.generate_tte_and_qr_code(surat_request, signer=signer)
         qr_code_url = str(tte_data["qr_code_url"])
         tte_token = str(tte_data.get("token") or "")
         hash_document = str(tte_data.get("hash_document") or "")
 
-        # 3. Render PDF dari Template dan Unggah ke Cloudinary
         pdf_url = self.render_pdf_and_upload(
             surat_request=surat_request,
             nomor_surat=nomor_resmi,
@@ -438,7 +435,6 @@ class SuratExecutionTools:
             final_approved_content=effective_content,
         )
 
-        # 4. Perbarui SuratRequest dan catat SuratAuditLog secara atomik
         with transaction.atomic():
             surat_request.nomor_surat_resmi = nomor_resmi
             surat_request.qr_verification_code = qr_code_url

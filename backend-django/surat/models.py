@@ -16,11 +16,6 @@ from accounts.models import User, Faculty, Department, Lecturer, Student, Course
 #    agar pengambilan aturan gaya bahasa (style rules) untuk injeksi System Prompt Fase 3
 #    tetap cepat tanpa membebani query PostgreSQL.
 
-# ==============================================================================
-# TAHAP 1: Tabel Utama & Master Non-FK
-# ==============================================================================
-
-
 class SuratStatus(models.TextChoices):
     PENDING_APPROVAL = "PENDING_APPROVAL", "Pending Approval (Menunggu Tinjauan Draf AI)"
     SUBMITTED = "SUBMITTED", "Submitted (Diajukan)"
