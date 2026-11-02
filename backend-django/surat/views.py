@@ -57,6 +57,7 @@ from .serializers import (
     ReDraftSuratRequestSerializer,
 )
 from .services.workflow_service import process_approval_action
+from .services.manual_handlers import create_approval_workflow_for_request
 from .services.session_manager import AutoSuratSessionManager
 
 # SARAN PERBAIKAN ARSITEKTURAL:
@@ -165,8 +166,6 @@ def _execute_drafting_agent_worker(
                 ]
             )
             
-            student_obj = surat_req.student 
-            
             SuratAuditLog.objects.create(
                 surat_request=surat_req,
                 action_id="AI_REV_REQ",
@@ -192,6 +191,8 @@ def _execute_drafting_agent_worker(
             ]
         )
 
+        create_approval_workflow_for_request(surat_req, surat_req.student)
+        
         SuratAuditLog.objects.create(
             surat_request=surat_req,
             action_id="AI_02",

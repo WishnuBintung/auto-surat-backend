@@ -2,6 +2,44 @@
 import cloudinary.uploader
 from ..models import SuratRequest, SuratApproval, SuratAttachment, SuratAuditLog, ApprovalRule
 
+def create_approval_workflow_for_request(surat_req, student):
+    """
+    Fungsi Helper (DRY) untuk membuat antrean SuratApproval berjenjang
+    berdasarkan ApprovalRule untuk sebuah SuratRequest yang sudah ada.
+    """
+    surat_type = surat_req.kode_surat
+    rules = ApprovalRule.objects.filter(kode_surat=surat_type).order_by('step_order')
+
+    if not rules.exists():
+        # Fallback default jika rule belum diatur: arahkan ke Dosen Pembimbing Akademik (DPA)
+        default_approver = student.dosen_pembimbing_akademik
+        if default_approver:
+            SuratApproval.objects.create(
+                surat_request=surat_req,
+                step_order=1,
+                approver=default_approver,
+                status='PENDING' # Gunakan string langsung jika enum belum siap di file ini
+            )
+    else:
+        # Daftarkan antrean approval sesuai step rule
+        for rule in rules:
+            approver_obj = None
+            if rule.approval_role == 'DPA':
+                approver_obj = student.dosen_pembimbing_akademik
+            elif rule.approval_role == 'KAPRODI':
+                approver_obj = student.prodi.kaprodi
+            elif rule.approval_role == 'DEKAN':
+                approver_obj = student.fakultas.dekan
+
+            if approver_obj:
+                SuratApproval.objects.create(
+                    surat_request=surat_req,
+                    step_order=rule.step_order,
+                    approver=approver_obj,
+                    # Step 1 langsung PENDING (aktif), sisanya WAITING
+                    status='PENDING' if rule.step_order == 1 else 'WAITING'
+                )
+
 def handle_manual_approval_surat(student, surat_type, payload_data, attachments_files=None):
     """
     Menangani pengajuan surat jalur Manual Approval Berjenjang.
@@ -30,37 +68,8 @@ def handle_manual_approval_surat(student, surat_type, payload_data, attachments_
             )
 
     # 3. Ambil aturan approval berjenjang berdasarkan ApprovalRule
-    rules = ApprovalRule.objects.filter(kode_surat=surat_type).order_by('step_order')
-
-    if not rules.exists():
-        # Fallback default jika rule belum diatur: arahkan ke Dosen Pembimbing Akademik (DPA)
-        default_approver = student.dosen_pembimbing_akademik
-        if default_approver:
-            SuratApproval.objects.create(
-                surat_request=surat_req,
-                step_order=1,
-                approver=default_approver,
-                status='PENDING'
-            )
-    else:
-        # Daftarkan antrean approval sesuai step rule
-        for rule in rules:
-            approver_obj = None
-            if rule.approval_role == 'DPA':
-                approver_obj = student.dosen_pembimbing_akademik
-            elif rule.approval_role == 'KAPRODI':
-                approver_obj = student.prodi.kaprodi
-            elif rule.approval_role == 'DEKAN':
-                approver_obj = student.fakultas.dekan
-
-            if approver_obj:
-                SuratApproval.objects.create(
-                    surat_request=surat_req,
-                    step_order=rule.step_order,
-                    approver=approver_obj,
-                    status='PENDING' if rule.step_order == 1 else 'WAITING'
-                )
-
+    create_approval_workflow_for_request(surat_req, student)
+    
     # 4. Catat Audit Log
     SuratAuditLog.objects.create(
         surat_request=surat_req,
