@@ -14,7 +14,7 @@ def detect_intent_dynamically(user_message: str) -> str | None:
         r'\b(pkl|praktik kerja lapangan|kerja praktek|internship)\b': 'SI-MAG',
         r'\b(skck)\b': 'SP-SKC',
         r'\b(cuti kuliah|non aktif|istirahat kuliah)\b': 'SK-KUL',
-        r'\b(beasiswa)\b': 'SK-BEA',
+        r'\b(beasiswa|sponsorship)\b': 'SR-BEA',
     }
     
     # Cek dulu lewat kamus alias cepat
