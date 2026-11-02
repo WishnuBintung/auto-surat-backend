@@ -57,7 +57,6 @@ from .serializers import (
     ReDraftSuratRequestSerializer,
 )
 from .services.workflow_service import process_approval_action
-from .services.manual_handlers import create_approval_workflow_for_request
 from .services.session_manager import AutoSuratSessionManager
 
 # SARAN PERBAIKAN ARSITEKTURAL:
@@ -167,7 +166,6 @@ def _execute_drafting_agent_worker(
             )
             
             student_obj = surat_req.student 
-            create_approval_workflow_for_request(surat_req, student_obj)
             
             SuratAuditLog.objects.create(
                 surat_request=surat_req,
@@ -753,6 +751,9 @@ class SuratRequestCreateAPIView(APIView):
         # Ambil field dinamis yang tersimpan di kolom/atribut jenis surat (sesuaikan nama field modelnya, misal: required_fields_dict)
         dynamic_fields_dict = getattr(surat_type, "required_fields_dict", None)
 
+        first_approval = SuratApproval.objects.filter(surat_request=surat_req).order_by('step_order').first()
+        approval_id = first_approval.id if first_approval else None
+        
         worker_thread = threading.Thread(
             target=_execute_drafting_agent_worker,
             kwargs={
@@ -782,6 +783,7 @@ class SuratRequestCreateAPIView(APIView):
                     "request_id": surat_req.id,
                     "kode_surat": surat_type.kode_surat,
                     "status": surat_req.status,
+                    "approval_id": approval_id, 
                 },
             },
             status=status.HTTP_202_ACCEPTED,
