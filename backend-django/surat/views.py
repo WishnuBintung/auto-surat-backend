@@ -412,21 +412,23 @@ class ChatSessionMessageAPIView(APIView):
         slots = session_data.get("slots", {})
         waiting_confirmation = session_data.get("is_waiting_for_switch_confirmation", False)
 
-        # 4. Jika semua required fields sudah lengkap, berikan sinyal ke frontend 
-        # bahwa sesi siap diconvert menjadi SuratRequest (Fase Drafting Agent).
-        surat_is_complete = False
+        # Ambil daftar required_fields dari database Supabase (SuratType) berdasarkan intent aktif
+        required_fields = []
         if intent:
             try:
                 surat_type_obj = SuratType.objects.get(kode_surat=intent)
                 required_fields = surat_type_obj.required_payload_fields or []
-                # Cek apakah seluruh field wajib sudah terisi di slots
-                if required_fields:
-                    surat_is_complete = all(
-                        item.get("field") in slots and bool(slots[item.get("field")])
-                        for item in required_fields
-                    )
             except SuratType.DoesNotExist:
                 pass
+
+        # 4. Jika semua required fields sudah lengkap, berikan sinyal ke frontend 
+        # bahwa sesi siap diconvert menjadi SuratRequest (Fase Drafting Agent).
+        surat_is_complete = False
+        if intent and required_fields:
+            surat_is_complete = all(
+                item.get("field") in slots and bool(slots[item.get("field")])
+                for item in required_fields
+            )
 
         if surat_is_complete:
             return Response({
@@ -434,6 +436,7 @@ class ChatSessionMessageAPIView(APIView):
                 "state": "READY_TO_DRAFT",
                 "kode_surat": intent,
                 "collected_slots": slots,
+                "required_fields": required_fields,
                 "reply": reply_message
             }, status=status.HTTP_200_OK)
 
@@ -444,9 +447,10 @@ class ChatSessionMessageAPIView(APIView):
             "detected_intent": intent,
             "is_waiting_for_switch_confirmation": waiting_confirmation,
             "reply": reply_message,
-            "collected_slots": slots
+            "collected_slots": slots,
+            "required_fields": required_fields  # <-- Ditambahkan agar frontend langsung mendapat kontrak field wajib
         }, status=status.HTTP_200_OK)
-                
+                        
 class SuratRequestRedraftAPIView(APIView):
     """
     Endpoint bagi mahasiswa untuk memberikan informasi tambahan / revisi 
