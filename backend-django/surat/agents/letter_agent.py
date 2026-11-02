@@ -196,9 +196,8 @@ class SuratDraftingAgent:
 
     def get_required_fields_for_kode(self, kode_surat: str, dynamic_fields_dict: Optional[Dict[str, str]] = None) -> List[Dict[str, str]]:
         """
-        Mengambil aturan field dari `required_field_surat.json` berdasarkan `kode_surat`.
-        Mendukung struktur JSON berupa pemetaan per `kode_surat` (dict) maupun daftar
-        spesifikasi kanonik langsung (list).
+        Mengambil aturan field wajib langsung dari tabel master SuratType (Supabase jsonb),
+        menghilangkan ketergantungan pada berkas JSON fisik.
         """
         if dynamic_fields_dict and isinstance(dynamic_fields_dict, dict):
             formatted_fields = []
@@ -216,53 +215,32 @@ class SuratDraftingAgent:
                 "Parameter kode_surat wajib diisi untuk memuat spesifikasi field surat."
             )
 
-        if not self.required_fields_path.exists():
-            raise SuratAgentConfigurationError(
-                f"Berkas kontrak data tidak ditemukan pada jalur: {self.required_fields_path}"
-            )
-
         try:
-            with open(self.required_fields_path, "r", encoding="utf-8") as file_obj:
-                raw_data = json.load(file_obj)
-        except (OSError, json.JSONDecodeError) as exc:
+            # AMBIL LANGSUNG DARI SUPABASE (SuratType model)
+            surat_type_obj = SuratType.objects.get(kode_surat=normalized_kode)
+            selected_fields = surat_type_obj.required_payload_fields  # Ini sudah berupa struktur list/jsonb
+        except SuratType.DoesNotExist:
             raise SuratAgentConfigurationError(
-                f"Gagal membaca atau mengurai berkas {self.required_fields_path}: {exc}"
-            ) from exc
-
-        selected_fields: Optional[List[Dict[str, str]]] = None
-
-        if isinstance(raw_data, dict):
-            # Jika JSON dipetakan berdasarkan kode_surat, cari kode terkait atau fallback DEFAULT
-            if normalized_kode in raw_data and isinstance(raw_data[normalized_kode], list):
-                selected_fields = raw_data[normalized_kode]
-            elif "DEFAULT" in raw_data and isinstance(raw_data["DEFAULT"], list):
-                selected_fields = raw_data["DEFAULT"]
-            else:
-                raise SuratAgentConfigurationError(
-                    f"Aturan field untuk kode_surat '{normalized_kode}' tidak ditemukan "
-                    f"di dalam {self.required_fields_path.name}."
-                )
-        elif isinstance(raw_data, list):
-            selected_fields = raw_data
-        else:
-            raise SuratAgentConfigurationError(
-                f"Format struktur {self.required_fields_path.name} tidak valid. "
-                "Harus berupa JSON Array atau JSON Object."
+                f"Master data jenis surat dengan kode '{normalized_kode}' tidak ditemukan di database Supabase."
             )
+        except Exception as exc:
+            raise SuratAgentConfigurationError(
+                f"Gagal memuat required_payload_fields untuk kode '{normalized_kode}': {exc}"
+            ) from exc
 
         if not selected_fields:
             raise SuratAgentConfigurationError(
-                f"Daftar spesifikasi field untuk kode_surat '{normalized_kode}' kosong."
+                f"Daftar spesifikasi field pada database untuk kode_surat '{normalized_kode}' kosong."
             )
 
         for item in selected_fields:
             if not isinstance(item, dict) or not item.get("field"):
                 raise SuratAgentConfigurationError(
-                    "Setiap entri pada required_field_surat.json wajib memiliki atribut 'field'."
+                    "Setiap entri pada required_payload_fields Supabase wajib memiliki atribut 'field'."
                 )
 
         return selected_fields
-
+    
     def resolve_output_schema(
         self, kode_surat: str, required_fields: List[Dict[str, str]]
     ) -> Type[BaseModel]:

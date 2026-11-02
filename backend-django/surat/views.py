@@ -365,6 +365,12 @@ class ChatThreadCreateAPIView(APIView):
             "created_at": thread.created_at
         }, status=status.HTTP_201_CREATED)
 class ChatSessionMessageAPIView(APIView):
+    """
+    Endpoint untuk memproses pesan obrolan mahasiswa secara interaktif.
+    Menggunakan AutoSuratSessionManager (Redis) + Chat Workflow Service 
+    untuk Intent Detection (Lapis 1 & 2), State Locking, dan Accumulative Slot Filling.
+    POST /api/surat/chat/<uuid:thread_id>/message/
+    """
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]
 
@@ -384,96 +390,63 @@ class ChatSessionMessageAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # 2. Jalankan SessionManager (Menangani Guardrail "batal", TTL 30 menit, & State Redis)
-        session_result = AutoSuratSessionManager.handle_incoming_message(
+        # 2. Jalankan AutoSuratSessionManager untuk menangani pesan masuk, 
+        # pembatalan global (pilar 5), TTL Redis, dan pencatatan riwayat ke PostgreSQL (ChatMessage).
+        reply_message = AutoSuratSessionManager.handle_incoming_message(
             thread_id=str(thread.id),
             user_message=user_msg,
             user_obj=request.user
         )
 
-        if session_result["state"] in ["CANCELLED", "EXPIRED"]:
+        # 3. Ambil kembali state terbaru dari Redis setelah diproses
+        session_data = AutoSuratSessionManager.get_session(str(thread.id))
+        
+        if session_data.get("state") in ["CANCELLED", "EXPIRED"]:
             return Response({
                 "status": "success",
-                "state": session_result["state"],
-                "reply": session_result["reply"]
+                "state": session_data["state"],
+                "reply": reply_message
             }, status=status.HTTP_200_OK)
 
-        current_state = session_result["state"]
-        intent = session_result["intent"] # Kode surat yang tersimpan di Redis (misal: "SR-MAG")
-        slots = session_result["slots"]
+        intent = session_data.get("intent") # Kode surat aktif (misal: "SI-MAG")
+        slots = session_data.get("slots", {})
+        waiting_confirmation = session_data.get("is_waiting_for_switch_confirmation", False)
 
-        # 3. CEK KONFIRMASI: Jika sesi sedang menunggu konfirmasi (preview sudah tampil) 
-        if current_state == "AWAITING_CONFIRMATION" and user_msg.lower() in ["lanjut", "ya", "proses", "oke", "buatkan", "ok", "yes"]:
+        # 4. Jika semua required fields sudah lengkap, berikan sinyal ke frontend 
+        # bahwa sesi siap diconvert menjadi SuratRequest (Fase Drafting Agent).
+        surat_is_complete = False
+        if intent:
+            try:
+                surat_type_obj = SuratType.objects.get(kode_surat=intent)
+                required_fields = surat_type_obj.required_payload_fields or []
+                # Cek apakah seluruh field wajib sudah terisi di slots
+                if required_fields:
+                    surat_is_complete = all(
+                        item.get("field") in slots and bool(slots[item.get("field")])
+                        for item in required_fields
+                    )
+            except SuratType.DoesNotExist:
+                pass
+
+        if surat_is_complete:
             return Response({
-                "status": "trigger_create_request",
-                "state": "AWAITING_CONFIRMATION",
-                "reply": "Konfirmasi diterima! Memproses pembuatan draf surat resmi Anda...",
+                "status": "ready_to_draft",
+                "state": "READY_TO_DRAFT",
                 "kode_surat": intent,
-                "collected_slots": slots
+                "collected_slots": slots,
+                "reply": reply_message
             }, status=status.HTTP_200_OK)
 
-        agent = SuratDraftingAgent()
-
-        # Ambil metadata mahasiswa
-        student_obj = getattr(request.user, 'student_profile', None)
-        student_metadata = {
-            "nim": getattr(student_obj, "nim", ""),
-            "nama": getattr(request.user, "nama", ""),
-            "prodi": getattr(getattr(student_obj, "prodi", None), "nama_prodi", ""),
-        } if student_obj else {}
-
-        # 4. Jalankan AI Agent (Mendukung Intent Classification jika `intent` masih kosong)
-        try:
-            clarification_result = agent.check_or_clarify_request(
-                user_prompt_context=user_msg,
-                kode_surat=intent, # Akan bernilai None jika pesan pertama, sehingga AI otomatis mendeteksi
-                student_metadata=student_metadata
-            )
-        except Exception as exc:
-            logger.exception("Gagal melakukan clarification check pada chat session:")
-            return Response(
-                {"status": "error", "message": "Terjadi kendala pada pemrosesan AI."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-        # Jika intent belum ada di Redis, simpan `detected_intent` hasil tebakan AI ke Redis
-        if not intent and getattr(clarification_result, "detected_intent", None):
-            intent = clarification_result.detected_intent
-
-        # 5. Jika Data Belum Lengkap -> Minta Klarifikasi / Slot Filling Lanjutan
-        if not clarification_result.is_complete:
-            AutoSuratSessionManager.save_session(
-                str(thread.id), 
-                state="COLLECTING_SLOTS", 
-                intent=intent, # Simpan intent yang baru terdeteksi
-                missing_slots=clarification_result.missing_fields
-            )
-            return Response({
-                "status": "needs_clarification",
-                "state": "COLLECTING_SLOTS",
-                "detected_intent": intent,
-                "reply": clarification_result.clarification_message,
-                "missing_fields": clarification_result.missing_fields
-            }, status=status.HTTP_200_OK)
-
-        # 6. Jika Data SUDAH LENGKAP -> Transisi ke State Konfirmasi (Preview)
-        AutoSuratSessionManager.save_session(
-            str(thread.id), 
-            state="AWAITING_CONFIRMATION", 
-            intent=intent,
-            slots=clarification_result.extracted_slots
-        )
-        
-        preview_summary = "\n".join([f"- **{k}**: {v}" for k, v in clarification_result.extracted_slots.items()])
-
+        # 5. Kembalikan balasan interaktif normal ke frontend (menampilkan checklist / tagihan field berikutnya)
         return Response({
-            "status": "ready_to_preview",
-            "state": "AWAITING_CONFIRMATION",
+            "status": "success",
+            "state": "COLLECTING_SLOTS",
             "detected_intent": intent,
-            "reply": f"Beres! Semua data yang diperlukan sudah terkumpul. Berikut ringkasan datanya:\n\n{preview_summary}\n\nApakah data di atas sudah benar? Silakan ketik **'Lanjut'** untuk memproses draf resmi.",
-            "collected_slots": clarification_result.extracted_slots
+            "is_waiting_for_switch_confirmation": waiting_confirmation,
+            "reply": reply_message,
+            "collected_slots": slots
         }, status=status.HTTP_200_OK)
-        
+                
 class SuratRequestRedraftAPIView(APIView):
     """
     Endpoint bagi mahasiswa untuk memberikan informasi tambahan / revisi 
