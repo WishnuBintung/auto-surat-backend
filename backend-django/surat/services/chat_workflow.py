@@ -1,7 +1,7 @@
 from surat.models import SuratType, ChatThread
 from .detect_intent import detect_intent_dynamically
 from .route_intent import route_intent_with_ai
-from .agents.letter_agent import SuratDraftingAgent  # Pastikan diimport jika dibutuhkan, atau sesuaikan dengan agen ekstraktor
+from surat.agents.letter_agent import SuratDraftingAgent  # Pastikan diimport jika dibutuhkan, atau sesuaikan dengan agen ekstraktor
 
 def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_data: dict) -> str:
     """
@@ -41,7 +41,7 @@ def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_d
             thread_obj.title = f"Permohonan {surat_obj.nama_surat}"
             thread_obj.save(update_fields=['document_type', 'title', 'updated_at'])
         
-        return f"Baik, kita akan memproses **{surat_obj.nama_surat}** ({detected_kode_surat})[cite: 1, 2]. Mari lengkapi data yang diperlukan!"
+        return f"Baik, kita akan memproses **{surat_obj.nama_surat}** ({detected_kode_surat})Mari lengkapi data yang diperlukan!"
 
     # 4. KASUS B: Intent sudah terkunci, tapi user mendadak menyebutkan intent BARU
     if detected_kode_surat and detected_kode_surat != active_intent:
