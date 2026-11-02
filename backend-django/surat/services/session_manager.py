@@ -36,6 +36,32 @@ class AutoSuratSessionManager:
             }
 
         return session_data
+    
+    @classmethod
+    def save_session(
+        cls, 
+        thread_id: str, 
+        state: str, 
+        intent: Optional[str] = None, 
+        slots: Optional[Dict[str, Any]] = None, 
+        missing_slots: Optional[list] = None,
+        pending_intent: Optional[str] = None,
+        is_waiting_for_switch_confirmation: Optional[bool] = None
+    ):
+        """Menyimpan atau memperbarui state ke Redis Cache dengan Sliding TTL 30 menit."""
+        redis_key = cls._get_redis_key(thread_id)
+        existing = cache.get(redis_key) or {}
+        
+        updated_data = {
+            "state": state,
+            "intent": intent if intent is not None else existing.get("intent"),
+            "pending_intent": pending_intent if pending_intent is not None else existing.get("pending_intent"),
+            "is_waiting_for_switch_confirmation": is_waiting_for_switch_confirmation if is_waiting_for_switch_confirmation is not None else existing.get("is_waiting_for_switch_confirmation", False),
+            "slots": slots if slots is not None else existing.get("slots", {}),
+            "missing_slots": missing_slots if missing_slots is not None else existing.get("missing_slots", [])
+        }
+
+        cache.set(redis_key, updated_data, timeout=cls.TTL_SECONDS)
 
     @classmethod
     def clear_session(cls, thread_id: str, target_status: str = ChatThread.ThreadStatus.CANCELLED):
