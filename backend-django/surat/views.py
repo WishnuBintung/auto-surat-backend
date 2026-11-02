@@ -57,7 +57,7 @@ from .serializers import (
     ReDraftSuratRequestSerializer,
 )
 from .services.workflow_service import process_approval_action
-from .services.session import AutoSuratSessionManager
+from .services.session_manager import AutoSuratSessionManager
 
 # SARAN PERBAIKAN ARSITEKTURAL:
 # 1. Eksekusi `SuratDraftingAgent.draft_letter()` didelegasikan ke background worker thread
