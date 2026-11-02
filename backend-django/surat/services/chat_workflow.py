@@ -1,6 +1,7 @@
 from surat.models import SuratType, ChatThread
 from .detect_intent import detect_intent_dynamically
 from .route_intent import route_intent_with_ai
+from .agents.letter_agent import SuratDraftingAgent  # Pastikan diimport jika dibutuhkan, atau sesuaikan dengan agen ekstraktor
 
 def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_data: dict) -> str:
     """
@@ -92,7 +93,10 @@ def handle_switch_confirmation_redis(user_message: str, thread_id: str, session_
 
 
 def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
-    """Mengelola slot filling dan membaca required fields dari Supabase berdasarkan intent di Redis."""
+    """
+    Mengelola slot filling secara fleksibel (mendukung input acak/terbalik)
+    serta membersihkan slot menggunakan fungsi sanitizer.
+    """
     try:
         surat_type = SuratType.objects.get(kode_surat=session_data.get("intent"))
     except SuratType.DoesNotExist:
@@ -101,28 +105,45 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
     required_fields = surat_type.required_payload_fields or []
     current_slots = session_data.get("slots", {})
 
-    # Cari field pertama yang belum terisi
-    target_field_key = None
-    for item in required_fields:
-        field_key = item.get("field")
-        if field_key not in current_slots or not current_slots[field_key]:
-            target_field_key = field_key
-            break
+    # 1. GUNAKAN AI / EXTRACTOR UNTUK MENANGKAP SLOT DARI PESAN BEBAS USER
+    # Menggunakan SuratDraftingAgent atau fungsi helper ekstraksi slot berstandar LLM
+    try:
+        agent = SuratDraftingAgent()
+        # Meminta AI mengekstrak data apa saja yang relevan dari pesan bebas user saat ini
+        extraction_result = agent.extract_slots_from_text(
+            user_prompt_context=user_message,
+            kode_surat=surat_type.kode_surat,
+            required_fields=required_fields
+        )
+        extracted_data = getattr(extraction_result, "extracted_slots", {}) or {}
+    except Exception:
+        # Fallback darurat jika ekstraksi AI gagal: masukkan langsung ke target kosong pertama
+        extracted_data = {}
+        for item in required_fields:
+            fk = item.get("field")
+            if fk not in current_slots or not current_slots[fk]:
+                extracted_data[fk] = user_message
+                break
 
-    # Akumulasikan input user ke slot
-    if target_field_key and user_message:
-        current_slots[target_field_key] = user_message
-        session_data["slots"] = current_slots
+    # 2. TERAPKAN SANITASI & AKUMULASI KE REDIS SLOTS (Accumulative Merge)
+    for field_key, raw_val in extracted_data.items():
+        if raw_val:
+            # Bersihkan dari kata tugas/noise menggunakan sanitizer regex kita
+            cleaned_val = sanitize_extracted_slot(field_key, raw_val)
+            # Hanya simpan jika slot tersebut memang bagian dari required fields
+            if any(item.get("field") == field_key for item in required_fields):
+                current_slots[field_key] = cleaned_val
 
-    # Render checklist status
+    session_data["slots"] = current_slots
+
+    # 3. Render checklist status kelengkapan terbaru
     checklist_lines, is_complete, next_target_label = generate_checklist_status_response(surat_type, current_slots)
     formatted_checklist = "\n".join(checklist_lines)
 
     if is_complete:
-        return f"{formatted_checklist}\n\n🎉 **Semua data untuk {surat_type.nama_surat} sudah lengkap!**[cite: 1, 2] Memproses pembuatan draf surat..."
+        return f"{formatted_checklist}\n\n🎉 **Semua data untuk {surat_type.nama_surat} sudah lengkap!**[cite: 1, 2] Silakan ketik 'Lanjut' untuk memproses draf surat."
     else:
         return f"{formatted_checklist}\n\nMohon informasikan data untuk: **{next_target_label}**"
-
 
 def generate_checklist_status_response(surat_type, current_slots: dict):
     required_fields = surat_type.required_payload_fields or []
@@ -147,3 +168,37 @@ def generate_checklist_status_response(surat_type, current_slots: dict):
                 next_target_label = field_label  
                 
     return checklist_lines, all_complete, next_target_label
+
+import re
+from typing import Dict, Any
+
+def sanitize_extracted_slot(field_name: str, raw_value: Any) -> Any:
+    """
+    Membersihkan slot dari sisa kata depan atau kalimat percakapan 
+    yang tidak sengaja ikut terekstrak.
+    """
+    if not isinstance(raw_value, str) or not raw_value.strip():
+        return raw_value
+
+    text = raw_value.strip()
+
+    # Sanitasi khusus instansi tujuan (buang kata depan/pembuka)
+    if field_name == "instansi_tujuan":
+        patterns_to_remove = [
+            r'^(untuk|ke|pada|kepada|di)\s+',
+            r'^(tolong buatkan surat( rekomendasi)?( beasiswa)?( untuk)?)\s+',
+            r'^(ditujukan ke|ditujukan kepada)\s+'
+        ]
+        for pattern in patterns_to_remove:
+            text = re.sub(pattern, '', text, flags=re.IGNORECASE).strip()
+
+    # Sanitasi khusus keperluan / alasan
+    elif field_name in ["tujuan_keperluan", "alasan_pengajuan"]:
+        patterns_to_remove = [
+            r'^(untuk|guna|rangka|dalam rangka)\s+',
+            r'^(keperluan)\s+'
+        ]
+        for pattern in patterns_to_remove:
+            text = re.sub(pattern, '', text, flags=re.IGNORECASE).strip()
+
+    return text
