@@ -101,7 +101,7 @@ class SuratRequest(models.Model):
     ('email', 'Email'),
     ('telegram', 'Telegram'),
 )
-    chosen_destination = models.CharField(max_choices=CHOICES_DESTINATION, max_length=20, null=True, blank=True)
+    chosen_destination = models.CharField(choices=CHOICES_DESTINATION, max_length=20, null=True, blank=True)
     target_destination_address = models.CharField(max_length=255, null=True, blank=True) # Bisa menampung email atau chat_id telegram
     created_at = models.DateTimeField(auto_now_add=True)
 
