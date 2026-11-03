@@ -94,7 +94,7 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     # 1. Generate Nomor Surat Resmi
                     nomor_resmi = generate_surat_number(surat_req.kode_surat, fakultas=surat_req.student.fakultas)
                     surat_req.nomor_surat_resmi = nomor_resmi
-                    surat_req.kode_surat.template_path = "/templates/kerangka-surat/base_surat_template.html"
+                    surat_req.kode_surat.template_path = "/kerangka-surat/base_surat_template.html"
 
                     # 2. Generate TTE & QR Code
                     tte_data = create_tte_signature(surat_req, signer=lecturer)
