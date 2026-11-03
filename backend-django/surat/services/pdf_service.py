@@ -27,11 +27,10 @@ def render_and_upload_pdf(template_path, context_data):
     try:
         upload_result = cloudinary.uploader.upload(
             pdf_temp_path,
-            resource_type="raw",
-            type="upload",          
-            access_mode="public",   
+            resource_type="auto",   # Biarkan Cloudinary mendeteksi otomatis sebagai dokumen/gambar aman
             folder="autosurat_output",
-            public_id=f"surat_{nomor_surat_clean}"
+            public_id=f"surat_{nomor_surat_clean}",
+            overwrite=True
         )
         secure_url = upload_result.get("secure_url")
     except Exception as e:
