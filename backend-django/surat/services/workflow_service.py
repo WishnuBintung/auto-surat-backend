@@ -125,23 +125,25 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     total_steps = len(surat_approvals)
 
                     for index, app in enumerate(surat_approvals):
-                        # Jika 'app' berupa objek model, ubah/akses atributnya. 
-                        # Tapi jika app sudah berupa dictionary, akses via key dictionary (app.get(...) atau app['...'])
+                        # Karena app adalah objek model Django, akses atribut menggunakan dot notation atau getattr
+                        step_order = getattr(app, 'step_order', None)
+                        status = getattr(app, 'status', None)
                         
-                        # Ambil data dasar yang sudah ada dari serializer/response
-                        step_order = getattr(app, 'step_order', None) or app.get('step_order')
-                        approver_name = getattr(app, 'approver_name', None) or app.get('approver_name')
-                        approver_nip = getattr(app, 'approver_nip', None) or app.get('approver_nip')
-                        status = getattr(app, 'status', None) or app.get('status')
+                        # Ambil data dari relasi approver (mengarah ke tabel lecturer/dosen, lalu ke user)
+                        lecturer_obj = getattr(app, 'approver', None)
+                        user_obj = getattr(lecturer_obj, 'user', None) if lecturer_obj else None
                         
-                        # Tentukan peran/jabatan berdasarkan urutan step atau ambil dari relasi lecturer
-                        # Contoh sederhana berdasarkan urutan: step 1 = Dosen Pembimbing, step terakhir = Pimpinan Fakultas
+                        # Nama dan NIP (sesuaikan field Supabase 'nip_nim')
+                        approver_name = getattr(user_obj, 'nama', None) or getattr(lecturer_obj, 'nama', None) or str(lecturer_obj)
+                        approver_nip = getattr(user_obj, 'nip_nim', None) or getattr(lecturer_obj, 'nip_nim', '-')
+                        
+                        # Tentukan peran/jabatan (berdasarkan step atau ambil langsung dari atribut tabel dosen jika ada)
                         if step_order == 1:
-                            approver_role = "Ketua Program Studi"
+                            approver_role = "Dosen Pembimbing"
                         else:
                             approver_role = "Pimpinan Fakultas"
 
-                        # Cek apakah ini approval terakhir untuk menentukan QR Code TTE
+                        # TTE QR Code hanya diberikan pada step persetujuan terakhir
                         is_last = (index == total_steps - 1)
                         qr_url = qr_base64 if is_last else None
 
@@ -154,7 +156,7 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                             "qr_code_url": qr_url
                         })
 
-                    # Masukkan ke context_data
+                    # Masukkan ke context_data untuk dirender WeasyPrint
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
@@ -162,7 +164,7 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                         "nama_surat": surat_req.kode_surat.nama_surat,
                         "qr_code_url": qr_base64,
                         "final_content": resolved_content,
-                        "approvals": surat_approvals_list, # <-- Gunakan list yang sudah diperkaya role-nya
+                        "approvals": surat_approvals_list,
                         "tanggal_terbit": timezone.now(),
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
