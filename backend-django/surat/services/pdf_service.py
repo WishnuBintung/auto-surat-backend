@@ -22,15 +22,17 @@ def render_and_upload_pdf(template_path, context_data):
         pdf_temp_path = output_pdf.name
 
     # Unggah ke Cloudinary
+    nomor_surat_clean = str(context_data.get('nomor_surat', 'unknown')).replace('/', '_')
+
     try:
         upload_result = cloudinary.uploader.upload(
             pdf_temp_path,
-            resource_type="image",
+            resource_type="raw",
             folder="autosurat_output",
-            format="pdf"
+            public_id=f"surat_{nomor_surat_clean}"
         )
         secure_url = upload_result.get("secure_url")
     except Exception as e:
         raise RuntimeError(f"Gagal mengunggah PDF ke Cloudinary: {str(e)}")
-
+    
     return secure_url

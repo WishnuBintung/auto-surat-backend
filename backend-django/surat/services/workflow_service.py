@@ -107,18 +107,23 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                         or ""
                     )
 
-                    # 3. Render PDF & Upload ke Cloudinary
+                    # Ambil daftar antrean approval yang sudah disetujui/terkait untuk dilempar ke template
+                    surat_approvals = SuratApproval.objects.filter(surat_request=surat_req).order_by('step_order')
+
+                    # Render PDF & Upload ke Cloudinary dengan context lengkap
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
                         "nomor_surat": nomor_resmi,
                         "qr_code_url": tte_data['qr_code_url'],
-                        "final_content": resolved_content  # <-- DIPERBAIKI: Naskah dikirim ke template PDF
+                        "final_content": resolved_content,
+                        "approvals": surat_approvals,  # <-- TAMBAHKAN INI AGAR BLOK TTD DINAMIS TERBACA
+                        "tanggal_terbit": timezone.now(), # <-- Agar tanggal surat otomatis terisi
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
                     surat_req.file_pdf_url = pdf_url
                     surat_req.save()
-
+                    
                 # 4. Catat Audit Log Final di luar blok transaksi kritis atau di dalam
                 SuratAuditLog.objects.create(
                     surat_request=surat_req,
