@@ -27,13 +27,22 @@ def render_and_upload_pdf(template_path, context_data):
     try:
         upload_result = cloudinary.uploader.upload(
             pdf_temp_path,
-            resource_type="auto",   # Deteksi otomatis oleh Cloudinary sebagai dokumen/gambar aman
+            resource_type="image",
+            type="upload",
+            access_mode="public",
             folder="autosurat_output",
             public_id=f"surat_{nomor_surat_clean}",
-            overwrite=True          # Menimpa file lama jika uji coba berulang
+            overwrite=True
         )
         secure_url = upload_result.get("secure_url")
+        
+        # SISIPKAN INI: Mengubah URL agar langsung mendownload file saat diklik
+        if secure_url and "/upload/" in secure_url:
+            secure_url = secure_url.replace("/upload/", "/upload/fl_attachment/")
+            
     except Exception as e:
         raise RuntimeError(f"Gagal mengunggah PDF ke Cloudinary: {str(e)}")
+
+    return secure_url.strip() if secure_url else None
 
     return secure_url
