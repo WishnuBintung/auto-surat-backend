@@ -1,4 +1,6 @@
 # apps/surat/services/workflow_service.py
+from asyncio.log import logger
+
 from django.utils import timezone
 from django.db import transaction
 from .auto_handlers import handle_auto_approval_surat
@@ -171,6 +173,7 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
                     surat_req.file_pdf_url = pdf_url
+                    surat_req.status = 'SENT'  
                     surat_req.save()
                     
                 # 4. Catat Audit Log Final di luar blok transaksi kritis atau di dalam
@@ -179,6 +182,10 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     action_id="FIN_01",
                     action="FINAL_APPROVED_AND_ISSUED"
                 )
+                try:
+                    route_and_distribute_document(surat_req)
+                except Exception as dist_err:
+                    logger.error(f"Gagal mengirim dokumen otomatis ke kanal distribusi: {dist_err}")
 
             except Exception as e:
                 return {"error": f"Gagal menerbitkan dokumen resmi: {str(e)}"}, 500
@@ -218,26 +225,36 @@ def process_email_routing(surat_request):
 
 def route_and_distribute_document(surat_request):
     """
-    Router utama agen untuk menentukan apakah kirim ke Email atau Telegram.
+    Router utama agen untuk menentukan apakah kirim ke Email atau Telegram
+    menggunakan kolom database yang konsisten (`chosen_destination` dan `target_destination_address`).
     """
-    pdf_path = surat_request.generated_pdf.path
-    destination_type = surat_request.chosen_destination # 'email' atau 'telegram'
-    
+    if not surat_request.file_pdf_url:
+        raise ValueError("File PDF belum tersedia untuk didistribusikan.")
+
+    destination_type = surat_request.chosen_destination  # 'email' atau 'telegram'
+    target_address = surat_request.target_destination_address # Berisi email atau chat ID
+
     if destination_type == 'email':
+        subject = f"Dokumen Resmi - {surat_request.kode_surat.nama_surat}"
+        body = (
+            "Dengan hormat,\n\n"
+            "Berikut dilampirkan dokumen resmi yang telah diterbitkan dan disetujui oleh Fakultas.\n"
+            "Anda juga dapat melakukan verifikasi keaslian dokumen melalui QR Code pada file terlampir.\n\n"
+            "Terima kasih."
+        )
         return send_surat_via_gmail_admin(
-            recipient_email=surat_request.target_email,
-            subject="Dokumen Resmi Fakultas",
-            body_message="Berikut terlampir surat resmi Anda.",
-            pdf_path=pdf_path
+            recipient_email=target_address,
+            subject=subject,
+            body_message=body,
+            pdf_path=surat_request.file_pdf_url  # Pastikan service menerima URL Cloudinary atau file lokal
         )
         
     elif destination_type == 'telegram':
-        # Pastikan model SuratRequest menyimpan telegram chat_id pengguna
-        chat_id = surat_request.telegram_chat_id 
-        caption = "✅ *Surat Resmi Anda Telah Disetujui!*\nBerikut adalah dokumen PDF yang diterbitkan oleh sistem."
-        
+        caption = "✅ *Surat Resmi Anda Telah Disetujui!*\nBerikut adalah dokumen PDF resmi yang diterbitkan oleh sistem kampus."
         return send_surat_via_telegram(
-            chat_id=chat_id,
+            chat_id=target_address,
             caption=caption,
-            pdf_path=pdf_path
+            pdf_path=surat_request.file_pdf_url
         )
+    else:
+        logger.warning(f"Destinasi pengiriman tidak dikenal atau kosong untuk SuratRequest id={surat_request.id}")
