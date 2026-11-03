@@ -96,6 +96,13 @@ class SuratRequest(models.Model):
 
     file_pdf_url = models.CharField(max_length=500, null=True, blank=True)
     qr_verification_code = models.CharField(max_length=255, null=True, blank=True)
+    
+    CHOICES_DESTINATION = (
+    ('email', 'Email'),
+    ('telegram', 'Telegram'),
+)
+    chosen_destination = models.CharField(max_choices=CHOICES_DESTINATION, max_length=20, null=True, blank=True)
+    target_destination_address = models.CharField(max_length=255, null=True, blank=True) # Bisa menampung email atau chat_id telegram
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

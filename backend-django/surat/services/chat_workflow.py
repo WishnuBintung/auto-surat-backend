@@ -1,3 +1,5 @@
+import re
+from typing import Dict, Any
 from surat.models import SuratType, ChatThread
 from .detect_intent import detect_intent_dynamically
 from .route_intent import route_intent_with_ai
@@ -104,6 +106,36 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
 
     required_fields = surat_type.required_payload_fields or []
     current_slots = session_data.get("slots", {})
+    
+    main_slots_complete = all(
+        item.get("field") in current_slots and bool(current_slots[item.get("field")])
+        for item in required_fields
+    )
+
+    if main_slots_complete:
+        # Jika slot utama sudah lengkap, cek apakah user sedang menjawab pilihan destinasi
+        msg_lower = user_message.lower()
+        if not current_slots.get("chosen_destination"):
+            if "email" in msg_lower:
+                current_slots["chosen_destination"] = "email"
+                session_data["slots"] = current_slots
+                return "Baik, terpilih **Email**. Mohon masukkan alamat email tujuan Anda saat ini:"
+            elif "telegram" in msg_lower:
+                current_slots["chosen_destination"] = "telegram"
+                session_data["slots"] = current_slots
+                return "Baik, terpilih **Telegram**. Mohon masukkan nomor **Chat ID Telegram** Anda:"
+            else:
+                return (
+                    "🎉 **Semua data surat sudah lengkap!**\n\n"
+                    "Terakhir, dokumen PDF hasil jadi nanti mau dikirimkan ke mana setelah disetujui dosen?\n"
+                    "👉 Silakan ketik: **Email** atau **Telegram**"
+                )
+        
+        # Jika chosen_destination sudah ada tapi target tujuannya belum terisi
+        if current_slots.get("chosen_destination") and not current_slots.get("target_destination_address"):
+            current_slots["target_destination_address"] = user_message.strip()
+            session_data["slots"] = current_slots
+            return f"✅ Preferensi pengiriman disimpan ({current_slots['chosen_destination']}: {current_slots['target_destination_address']}).\n\nSemua data telah lengkap! Silakan ketik **'Lanjut'** untuk memproses draf surat."
 
     # 1. GUNAKAN AI / EXTRACTOR UNTUK MENANGKAP SLOT DARI PESAN BEBAS USER
     # Menggunakan SuratDraftingAgent atau fungsi helper ekstraksi slot berstandar LLM
@@ -139,9 +171,20 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
     # 3. Render checklist status kelengkapan terbaru
     checklist_lines, is_complete, next_target_label = generate_checklist_status_response(surat_type, current_slots)
     formatted_checklist = "\n".join(checklist_lines)
-
-    if is_complete:
-        return f"{formatted_checklist}\n\n🎉 **Semua data untuk {surat_type.nama_surat} sudah lengkap! Silakan ketik 'Lanjut' untuk memproses draf surat."
+    
+    main_slots_complete_now = all(
+        item.get("field") in current_slots and bool(current_slots[field_key := item.get("field")])
+        for item in required_fields
+    )
+    
+    if main_slots_complete_now:
+        return (
+            f"{formatted_checklist}\n\n"
+            "🎉 **Semua data untuk surat ini sudah lengkap!**\n"
+            "Terakhir, dokumen PDF hasil jadi nanti mau dikirimkan ke mana setelah disetujui?\n"
+            "👉 Silakan ketik: **Email** atau **Telegram**"
+        )
+        
     else:
         return f"{formatted_checklist}\n\nMohon informasikan data untuk: **{next_target_label}**"
 
@@ -168,9 +211,6 @@ def generate_checklist_status_response(surat_type, current_slots: dict):
                 next_target_label = field_label  
                 
     return checklist_lines, all_complete, next_target_label
-
-import re
-from typing import Dict, Any
 
 def sanitize_extracted_slot(field_name: str, raw_value: Any) -> Any:
     """

@@ -221,4 +221,16 @@ GEMINI_MODEL_NAME = os.environ.get('GEMINI_MODEL_NAME', 'gemini-3.1-flash-lite')
 AGENT_CRITIQUE_MIN_SCORE = int(os.environ.get('AGENT_CRITIQUE_MIN_SCORE', '8'))
 AGENT_MAX_REVISIONS = int(os.environ.get('AGENT_MAX_REVISIONS', '1'))
 AGENT_TIMEOUT_SECONDS = float(os.environ.get('AGENT_TIMEOUT_SECONDS', '30.0'))
-REQUIRED_FIELD_SURAT_PATH = BASE_DIR / 'required_field_surat.json'
+REQUIRED_FIELD_SURAT_PATH = BASE_DIR / 'required_field_surat.json' 
+
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS') == 'True'
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')

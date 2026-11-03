@@ -44,6 +44,21 @@ class SuratRequestCreateSerializer(serializers.Serializer):
         help_text="Alias opsional untuk konteks permohonan surat.",
     )
     payload_data = serializers.JSONField(default=dict, required=False)
+    
+    chosen_destination = serializers.ChoiceField(
+        choices=["email", "telegram"],
+        required=False,
+        allow_null=True,
+        help_text="Pilihan kanal pengiriman dokumen akhir ('email' atau 'telegram')."
+    )
+    target_destination_address = serializers.CharField(
+        max_length=255,
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        help_text="Alamat email atau Chat ID Telegram tujuan."
+    )
+    
     attachments = serializers.ListField(
         child=serializers.FileField(),
         required=False,

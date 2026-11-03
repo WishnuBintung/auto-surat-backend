@@ -7,6 +7,8 @@ from .number_service import generate_surat_number
 from .tte_service import create_tte_signature
 from .pdf_service import render_and_upload_pdf
 from ..models import SuratApproval, SuratAuditLog
+from .email_service import send_surat_via_gmail_admin
+from .telegram_service import send_surat_via_telegram
 
 def process_surat_request(student, surat_type, payload_data, attachments_files=None):
     """
@@ -188,3 +190,54 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
             }, 200
 
     return {"error": "Aksi tidak valid."}, 400
+
+def process_email_routing(surat_request):
+    # Path file PDF surat yang tersimpan di server
+    pdf_path = surat_request.generated_pdf.path 
+    
+    # Tujuan email (bisa email mahasiswa atau email instansi tujuan/HRD)
+    recipient = surat_request.target_email_destination 
+    
+    subject = f"Dokumen Resmi - {surat_request.surat_type.name}"
+    body = (
+        "Dengan hormat,\n\n"
+        "Berikut dilampirkan dokumen resmi yang telah diterbitkan dan disetujui oleh Fakultas.\n"
+        "Anda juga dapat melakukan verifikasi keaslian dokumen melalui QR Code pada file terlampir.\n\n"
+        "Terima kasih."
+    )
+    
+    # Eksekusi pengiriman
+    result = send_surat_via_gmail_admin(
+        recipient_email=recipient,
+        subject=subject,
+        body_message=body,
+        pdf_path=pdf_path
+    )
+    
+    return result
+
+def route_and_distribute_document(surat_request):
+    """
+    Router utama agen untuk menentukan apakah kirim ke Email atau Telegram.
+    """
+    pdf_path = surat_request.generated_pdf.path
+    destination_type = surat_request.chosen_destination # 'email' atau 'telegram'
+    
+    if destination_type == 'email':
+        return send_surat_via_gmail_admin(
+            recipient_email=surat_request.target_email,
+            subject="Dokumen Resmi Fakultas",
+            body_message="Berikut terlampir surat resmi Anda.",
+            pdf_path=pdf_path
+        )
+        
+    elif destination_type == 'telegram':
+        # Pastikan model SuratRequest menyimpan telegram chat_id pengguna
+        chat_id = surat_request.telegram_chat_id 
+        caption = "✅ *Surat Resmi Anda Telah Disetujui!*\nBerikut adalah dokumen PDF yang diterbitkan oleh sistem."
+        
+        return send_surat_via_telegram(
+            chat_id=chat_id,
+            caption=caption,
+            pdf_path=pdf_path
+        )

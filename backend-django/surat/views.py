@@ -735,12 +735,18 @@ class SuratRequestCreateAPIView(APIView):
         agent = self.get_drafting_agent() or SuratDraftingAgent()
         # State Pausing: Buat rekam data awal dengan status SUBMITTED tanpa memicu
         # pembuatan Nomor Surat, TTE, QR Code, atau unggahan Cloudinary.
+        chosen_destination = request.data.get("chosen_destination") # 'email' atau 'telegram'
+        target_destination_address = request.data.get("target_destination_address") # Alamat email atau Telegram Chat ID
+        
+        # State Pausing: Buat rekam data awal dengan status SUBMITTED serta simpan preferensi tujuannya
         surat_req = SuratRequest.objects.create(
             student=student_obj,
             kode_surat=surat_type,
             status=SuratStatus.SUBMITTED,
             payload_data=initial_payload,
             user_prompt_context=user_prompt_context,
+            chosen_destination=chosen_destination,             # <-- Tambahkan ini
+            target_destination_address=target_destination_address, # <-- Tambahkan ini (sesuaikan nama field modelmu)
         )
 
         SuratAuditLog.objects.create(
