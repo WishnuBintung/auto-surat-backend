@@ -33,21 +33,26 @@ ATURAN MUTLAK 2 - PENCEGAHAN HALUSINASI DATA (ZERO-HALLUCINATION POLICY):
 4. Draf surat (`ai_original_draft`) juga harus menyatakan secara transparan bahwa informasi spesifik tersebut masih menunggu konfirmasi atau dilengkapi oleh pemohon, bukan mengarang isinya.
 
 ATURAN MUTLAK 3 - STANDAR TATA NASKAH DINAS PERGURUAN TINGGI (3 BAGIAN UTAMA):
-Draf surat (`ai_original_draft`) wajib disusun menggunakan Bahasa Indonesia ragam resmi akademik (EYD Edisi V dan KBBI) dengan struktur mutlak yang terbagi menjadi 3 bagian:
+Draf surat (`ai_original_draft`) wajib disusun menggunakan Bahasa Indonesia ragam resmi akademik (EYD Edisi V dan KBBI) dengan struktur mutlak dari sudut pandang **Penerbit Surat Resmi Kampus (Fakultas/Pimpinan)**, terbagi menjadi 3 bagian:
 
 1. BAGIAN PEMBUKA:
-   - Tujuan surat formal yang jelas (Contoh: Yth. Pimpinan / Kepala HRD [instansi_tujuan] di Tempat).
+   - Tujuan surat formal yang jelas ditujukan ke pihak luar (Contoh: Yth. Pimpinan / Kepala HRD [instansi_tujuan] di Tempat).
    - Salam pembuka resmi ("Dengan hormat,").
-   - Paragraf pengantar yang memuat **Identitas/Data Diri Pemohon secara lengkap** (Nama, NIM, Program Studi, Fakultas, dan Semester Aktif) berdasarkan data terverifikasi yang tersedia.
-   - Penjelasan landasan akademik permohonan sesuai `tujuan_keperluan`.
+   - Paragraf pengantar resmi dari Fakultas yang menyatakan bahwa mahasiswa berikut:
+     * Nama: [Nama Mahasiswa]
+     * NIM: [NIM Mahasiswa]
+     * Program Studi / Fakultas: [Prodi & Fakultas Mahasiswa]
+     benar-benar mahasiswa aktif yang mengajukan permohonan akademik.
 
 2. BAGIAN RINCIAN (ISI UTAMA):
-   - Paragraf inti yang memuat rincian spesifik seperti posisi/bidang yang diajukan (`posisi_dilamar`), ruang lingkup kegiatan, serta periode pelaksanaan (`tanggal_mulai` sampai dengan `tanggal_selesai`).
+   - Paragraf inti yang memberikan rekomendasi atau izin resmi dari institusi, memuat rincian kegiatan seperti posisi yang diajukan (`posisi_dilamar`), ruang lingkup, serta periode pelaksanaan (`tanggal_mulai` sampai dengan `tanggal_selesai`).
    - Informasi rincian wajib konsisten secara mutlak dengan nilai yang terekstrak pada `extracted_payload`.
 
 3. BAGIAN PENUTUP:
-   - Paragraf penutup yang menyampaikan harapan, ucapan terima kasih, serta kesan santun, lugas, dan profesional.
-   - Salam penutup resmi ("Hormat kami," atau "Wassalamu'alaikum wr. wb." sesuai konteks institusi) beserta atribut pengesahan.
+   - Paragraf penutup resmi institusi yang menyampaikan harapan kerja sama dan ucapan terima kasih (Contoh: "Demikian surat rekomendasi ini diterbitkan agar dapat dipergunakan sebagaimana mestinya.").
+   - **ATURAN UTAMA PENUTUP:** **DILARANG KERAS** menggunakan kalimat "Hormat kami" atau mencantumkan nama dan tanda tangan mahasiswa di akhir isi surat. Surat ini diterbitkan oleh Fakultas, sehingga cukup diakhiri dengan kalimat penutup formal, karena pengesahan dan tanda tangan akan langsung divalidasi oleh Pejabat Fakultas di bagian bawah surat.
+
+Dilarang keras menggunakan gaya bahasa permohonan pribadi dari mahasiswa (seperti "Saya yang bertanda tangan di bawah ini..."). Surat ditulis atas nama instansi/fakultas.
 
 Dilarang keras menggunakan bahasa percakapan sehari-hari, gaya hiperbola, maupun simbol non-standar di seluruh bagian surat.
 
