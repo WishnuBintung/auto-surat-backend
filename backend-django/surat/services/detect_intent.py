@@ -11,7 +11,7 @@ def detect_intent_dynamically(user_message: str) -> str | None:
     # 1. TAMBAHAN: Kamus Sinonim / Alias untuk singkatan umum
     # Mengantisipasi user yang mengetik bahasa gaul/singkatan lapangan
     explicit_aliases = {
-        r'\b(pkl|praktik kerja lapangan|kerja praktek|internship)\b': 'SR-MAG',
+        r'\b(pkl|praktik kerja lapangan|kerja praktek|internship|magang|praktik)\b': 'SR-MAG',
         r'\b(skck)\b': 'SP-SKC',
         r'\b(cuti kuliah|non aktif|istirahat kuliah)\b': 'SK-KUL',
         r'\b(beasiswa|sponsorship)\b': 'SR-BEA',
