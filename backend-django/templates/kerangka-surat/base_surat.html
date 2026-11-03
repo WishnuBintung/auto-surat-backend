@@ -123,15 +123,13 @@
                 <td>:</td>
                 <td>-</td>
             </tr>
-            <tr>
-                <td>Perihal</td>
-                <td>:</td>
-                <td><b>Permohonan Surat Keterangan / Izin</b></td>
-            </tr>
         </table>
     </div>
 
     <!-- ISI SURAT (HASIL RENDER HTML DARI AI) -->
+     <div style="text-align: center; margin: 20px 0; font-weight: bold; text-transform: uppercase;">
+        <u>{{ nama_surat }}</u>
+    </div>
     <div class="isi-surat">
         {{ final_content|safe }}
     </div>

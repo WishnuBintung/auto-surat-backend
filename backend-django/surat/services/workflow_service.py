@@ -110,15 +110,23 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     # Ambil daftar antrean approval yang sudah disetujui/terkait untuk dilempar ke template
                     surat_approvals = SuratApproval.objects.filter(surat_request=surat_req).order_by('step_order')
 
-                    # Render PDF & Upload ke Cloudinary dengan context lengkap
+                    # Generate Base64 untuk QR Code TTE agar WeasyPrint pasti bisa merendernya
+                    import qrcode, io, base64
+                    qr_img = qrcode.make(tte_data.get('token', nomor_resmi))
+                    buf = io.BytesIO()
+                    qr_img.save(buf, format="PNG")
+                    qr_base64 = f"data:image/png;base64,{base64.b64encode(buf.getvalue()).decode('utf-8')}"
+
+                    # Render PDF & Upload ke Cloudinary dengan context yang BENAR & LENGKAP
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
                         "nomor_surat": nomor_resmi,
-                        "qr_code_url": tte_data['qr_code_url'],
+                        "nama_surat": surat_req.kode_surat.nama_surat,  # <-- Mengambil nama jenis surat otomatis
+                        "qr_code_url": qr_base64, # <-- Pakai Base64
                         "final_content": resolved_content,
-                        "approvals": surat_approvals,  # <-- TAMBAHKAN INI AGAR BLOK TTD DINAMIS TERBACA
-                        "tanggal_terbit": timezone.now(), # <-- Agar tanggal surat otomatis terisi
+                        "approvals": list(surat_approvals),
+                        "tanggal_terbit": timezone.now(),
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
                     surat_req.file_pdf_url = pdf_url
