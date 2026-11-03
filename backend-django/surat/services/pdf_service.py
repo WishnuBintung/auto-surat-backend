@@ -28,6 +28,8 @@ def render_and_upload_pdf(template_path, context_data):
         upload_result = cloudinary.uploader.upload(
             pdf_temp_path,
             resource_type="raw",
+            type="upload",          
+            access_mode="public",   
             folder="autosurat_output",
             public_id=f"surat_{nomor_surat_clean}"
         )
