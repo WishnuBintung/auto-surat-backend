@@ -61,7 +61,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # <-- Pastikan baris ini ada dan mengarah ke folder templates
+        'DIRS': [BASE_DIR / 'templates/kerangka_surat'], # <-- Pastikan baris ini ada dan mengarah ke folder templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

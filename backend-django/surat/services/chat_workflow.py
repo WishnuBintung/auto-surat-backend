@@ -52,7 +52,7 @@ def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_d
         session_data["is_waiting_for_switch_confirmation"] = True
         
         return (
-            f"⚠️ Sesi saat ini sedang memproses **{old_surat.nama_surat}**[cite: 1, 2]. "
+            f"⚠️ Sesi saat ini sedang memproses **{old_surat.nama_surat}"
             f"Apakah Anda ingin membatalkan draf tersebut dan beralih membuat **{new_surat.nama_surat}**? "
             f"\n\n(Ketik **'Ya'** untuk beralih atau **'Tidak'** untuk melanjutkan draf sebelumnya)"
         )
@@ -141,7 +141,7 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
     formatted_checklist = "\n".join(checklist_lines)
 
     if is_complete:
-        return f"{formatted_checklist}\n\n🎉 **Semua data untuk {surat_type.nama_surat} sudah lengkap!**[cite: 1, 2] Silakan ketik 'Lanjut' untuk memproses draf surat."
+        return f"{formatted_checklist}\n\n🎉 **Semua data untuk {surat_type.nama_surat} sudah lengkap! Silakan ketik 'Lanjut' untuk memproses draf surat."
     else:
         return f"{formatted_checklist}\n\nMohon informasikan data untuk: **{next_target_label}**"
 
