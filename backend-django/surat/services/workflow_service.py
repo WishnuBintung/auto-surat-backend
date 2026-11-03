@@ -1,5 +1,5 @@
 # apps/surat/services/workflow_service.py
-from asyncio import logger
+from logging import getLogger
 from django.utils import timezone
 from django.db import transaction
 from .auto_handlers import handle_auto_approval_surat
@@ -10,6 +10,8 @@ from .pdf_service import render_and_upload_pdf
 from ..models import SuratApproval, SuratAuditLog
 from .email_service import send_surat_via_gmail_admin
 from .telegram_service import send_surat_via_telegram
+
+logger = getLogger(__name__)
 
 def process_surat_request(student, surat_type, payload_data, attachments_files=None):
     """
