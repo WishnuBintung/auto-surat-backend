@@ -109,7 +109,8 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
 
                     # Ambil daftar antrean approval yang sudah disetujui/terkait untuk dilempar ke template
                     surat_approvals = SuratApproval.objects.filter(surat_request=surat_req).order_by('step_order')
-
+                    surat_approvals_list = []
+                    
                     # Generate Base64 untuk QR Code TTE agar WeasyPrint pasti bisa merendernya
                     import qrcode, io, base64
                     qr_img = qrcode.make(tte_data.get('token', nomor_resmi))
@@ -118,14 +119,32 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     qr_base64 = f"data:image/png;base64,{base64.b64encode(buf.getvalue()).decode('utf-8')}"
 
                     # Render PDF & Upload ke Cloudinary dengan context yang BENAR & LENGKAP
+                    # Ambil daftar approval dan konversi jadi list of dict agar mudah dibaca HTML
+                    
+                    
+                    for app in surat_approvals:
+                        # Ambil nama dan NIP dari relasi approver (sesuaikan dengan struktur model Lecturer/User Anda)
+                        nama_pejabat = getattr(app.approver.user, 'nama', None) or str(app.approver)
+                        nip_pejabat = getattr(app.approver, 'nip', '-')
+                        
+                        surat_approvals_list.append({
+                            "step_order": app.step_order,
+                            "approver_role": getattr(app, 'approver_role', 'Pejabat Fakultas'),
+                            "approver_name": nama_pejabat,
+                            "approver_nip": nip_pejabat,
+                            "status": app.status,
+                            "qr_code_url": qr_base64 if app == surat_approvals.last() else None # TTE QR hanya di step akhir
+                        })
+
+                    # Render PDF & Upload ke Cloudinary dengan context lengkap
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
                         "nomor_surat": nomor_resmi,
-                        "nama_surat": surat_req.kode_surat.nama_surat,  # <-- Mengambil nama jenis surat otomatis
-                        "qr_code_url": qr_base64, # <-- Pakai Base64
+                        "nama_surat": surat_req.kode_surat.nama_surat,
+                        "qr_code_url": qr_base64,
                         "final_content": resolved_content,
-                        "approvals": list(surat_approvals),
+                        "approvals": surat_approvals_list, # <-- Masukkan list berformat dictionary ini
                         "tanggal_terbit": timezone.now(),
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)

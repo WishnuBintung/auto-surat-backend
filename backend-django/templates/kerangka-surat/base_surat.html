@@ -138,18 +138,6 @@
     <div class="ttd-container">
         {% if approvals and approvals|length > 1 %}
             <div class="ttd-dual">
-                <!-- Kolom Kiri: Dosen Pembimbing / Kaprodi -->
-                <div class="ttd-column-left">
-                    <p>Mengetahui,<br>{{ approvals.0.approver_role|default:"Dosen Pembimbing" }}</p>
-                    <div class="qr-code-box">
-                        {% if approvals.0.qr_code_url %}
-                            <img src="{{ approvals.0.qr_code_url }}" class="qr-code-img" alt="QR TTE" />
-                        {% else %}
-                            <div style="height: 60px;"></div>
-                        {% endif %}
-                    </div>
-                    <p><u><b>{{ approvals.0.approver_name|default:"..................................." }}</b></u><br>NIP. {{ approvals.0.approver_nip|default:"-" }}</p>
-                </div>
                 
                 <!-- Kolom Kanan: Dekan / Pimpinan Fakultas -->
                 <div class="ttd-column-right">

@@ -44,5 +44,3 @@ def render_and_upload_pdf(template_path, context_data):
         raise RuntimeError(f"Gagal mengunggah PDF ke Cloudinary: {str(e)}")
 
     return secure_url.strip() if secure_url else None
-
-    return secure_url
