@@ -121,22 +121,40 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     # Render PDF & Upload ke Cloudinary dengan context yang BENAR & LENGKAP
                     # Ambil daftar approval dan konversi jadi list of dict agar mudah dibaca HTML
                     
-                    
-                    for app in surat_approvals:
-                        # Ambil nama dan NIP dari relasi approver (sesuaikan dengan struktur model Lecturer/User Anda)
-                        nama_pejabat = getattr(app.approver.user, 'nama', None) or str(app.approver)
-                        nip_pejabat = getattr(app.approver, 'nip', '-')
+                    surat_approvals_list = []
+                    total_steps = len(surat_approvals)
+
+                    for index, app in enumerate(surat_approvals):
+                        # Jika 'app' berupa objek model, ubah/akses atributnya. 
+                        # Tapi jika app sudah berupa dictionary, akses via key dictionary (app.get(...) atau app['...'])
                         
+                        # Ambil data dasar yang sudah ada dari serializer/response
+                        step_order = getattr(app, 'step_order', None) or app.get('step_order')
+                        approver_name = getattr(app, 'approver_name', None) or app.get('approver_name')
+                        approver_nip = getattr(app, 'approver_nip', None) or app.get('approver_nip')
+                        status = getattr(app, 'status', None) or app.get('status')
+                        
+                        # Tentukan peran/jabatan berdasarkan urutan step atau ambil dari relasi lecturer
+                        # Contoh sederhana berdasarkan urutan: step 1 = Dosen Pembimbing, step terakhir = Pimpinan Fakultas
+                        if step_order == 1:
+                            approver_role = "Ketua Program Studi"
+                        else:
+                            approver_role = "Pimpinan Fakultas"
+
+                        # Cek apakah ini approval terakhir untuk menentukan QR Code TTE
+                        is_last = (index == total_steps - 1)
+                        qr_url = qr_base64 if is_last else None
+
                         surat_approvals_list.append({
-                            "step_order": app.step_order,
-                            "approver_role": getattr(app, 'approver_role', 'Pejabat Fakultas'),
-                            "approver_name": nama_pejabat,
-                            "approver_nip": nip_pejabat,
-                            "status": app.status,
-                            "qr_code_url": qr_base64 if app == surat_approvals.last() else None # TTE QR hanya di step akhir
+                            "step_order": step_order,
+                            "approver_role": approver_role,
+                            "approver_name": approver_name,
+                            "approver_nip": approver_nip,
+                            "status": status,
+                            "qr_code_url": qr_url
                         })
 
-                    # Render PDF & Upload ke Cloudinary dengan context lengkap
+                    # Masukkan ke context_data
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
@@ -144,7 +162,7 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                         "nama_surat": surat_req.kode_surat.nama_surat,
                         "qr_code_url": qr_base64,
                         "final_content": resolved_content,
-                        "approvals": surat_approvals_list, # <-- Masukkan list berformat dictionary ini
+                        "approvals": surat_approvals_list, # <-- Gunakan list yang sudah diperkaya role-nya
                         "tanggal_terbit": timezone.now(),
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
