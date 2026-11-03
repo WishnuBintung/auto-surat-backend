@@ -1,6 +1,5 @@
 # apps/surat/services/workflow_service.py
-from asyncio.log import logger
-
+from asyncio import logger
 from django.utils import timezone
 from django.db import transaction
 from .auto_handlers import handle_auto_approval_surat
@@ -122,32 +121,24 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     qr_img.save(buf, format="PNG")
                     qr_base64 = f"data:image/png;base64,{base64.b64encode(buf.getvalue()).decode('utf-8')}"
 
-                    # Render PDF & Upload ke Cloudinary dengan context yang BENAR & LENGKAP
-                    # Ambil daftar approval dan konversi jadi list of dict agar mudah dibaca HTML
-                    
                     surat_approvals_list = []
                     total_steps = len(surat_approvals)
 
                     for index, app in enumerate(surat_approvals):
-                        # Karena app adalah objek model Django, akses atribut menggunakan dot notation atau getattr
                         step_order = getattr(app, 'step_order', None)
                         status = getattr(app, 'status', None)
                         
-                        # Ambil data dari relasi approver (mengarah ke tabel lecturer/dosen, lalu ke user)
                         lecturer_obj = getattr(app, 'approver', None)
                         user_obj = getattr(lecturer_obj, 'user', None) if lecturer_obj else None
                         
-                        # Nama dan NIP (sesuaikan field Supabase 'nip_nim')
                         approver_name = getattr(user_obj, 'nama', None) or getattr(lecturer_obj, 'nama', None) or str(lecturer_obj)
                         approver_nip = getattr(user_obj, 'nip_nim', None) or getattr(lecturer_obj, 'nip_nim', '-')
                         
-                        # Tentukan peran/jabatan (berdasarkan step atau ambil langsung dari atribut tabel dosen jika ada)
                         if step_order == 1:
                             approver_role = "Dosen Pembimbing"
                         else:
                             approver_role = "Pimpinan Fakultas"
 
-                        # TTE QR Code hanya diberikan pada step persetujuan terakhir
                         is_last = (index == total_steps - 1)
                         qr_url = qr_base64 if is_last else None
 
@@ -160,7 +151,6 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                             "qr_code_url": qr_url
                         })
 
-                    # Masukkan ke context_data untuk dirender WeasyPrint
                     context_data = {
                         "student": surat_req.student,
                         "payload": surat_req.payload_data,
@@ -173,15 +163,17 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     }
                     pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
                     surat_req.file_pdf_url = pdf_url
-                    surat_req.status = 'SENT'  
+                    surat_req.status = 'SENT'  # Update status akhir menjadi terkirim/selesai
                     surat_req.save()
                     
-                # 4. Catat Audit Log Final di luar blok transaksi kritis atau di dalam
+                # 4. Catat Audit Log Final
                 SuratAuditLog.objects.create(
                     surat_request=surat_req,
                     action_id="FIN_01",
                     action="FINAL_APPROVED_AND_ISSUED"
                 )
+
+                # 5. [PERBAIKAN UTAMA] EKSEKUSI DISTRIBUSI OTOMATIS BERDASARKAN PILIHAN AWAL
                 try:
                     route_and_distribute_document(surat_req)
                 except Exception as dist_err:
@@ -191,37 +183,13 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                 return {"error": f"Gagal menerbitkan dokumen resmi: {str(e)}"}, 500
 
             return {
-                "message": "Persetujuan final selesai. Surat resmi berhasil diterbitkan!",
+                "message": "Persetujuan final selesai. Surat resmi berhasil diterbitkan dan dikirim ke tujuan!",
                 "nomor_surat_resmi": nomor_resmi,
                 "file_pdf_url": surat_req.file_pdf_url
             }, 200
 
     return {"error": "Aksi tidak valid."}, 400
 
-def process_email_routing(surat_request):
-    # Path file PDF surat yang tersimpan di server
-    pdf_path = surat_request.generated_pdf.path 
-    
-    # Tujuan email (bisa email mahasiswa atau email instansi tujuan/HRD)
-    recipient = surat_request.target_email_destination 
-    
-    subject = f"Dokumen Resmi - {surat_request.surat_type.name}"
-    body = (
-        "Dengan hormat,\n\n"
-        "Berikut dilampirkan dokumen resmi yang telah diterbitkan dan disetujui oleh Fakultas.\n"
-        "Anda juga dapat melakukan verifikasi keaslian dokumen melalui QR Code pada file terlampir.\n\n"
-        "Terima kasih."
-    )
-    
-    # Eksekusi pengiriman
-    result = send_surat_via_gmail_admin(
-        recipient_email=recipient,
-        subject=subject,
-        body_message=body,
-        pdf_path=pdf_path
-    )
-    
-    return result
 
 def route_and_distribute_document(surat_request):
     """
