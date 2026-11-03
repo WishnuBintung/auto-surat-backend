@@ -126,10 +126,12 @@
         </table>
     </div>
 
-    <!-- ISI SURAT (HASIL RENDER HTML DARI AI) -->
-     <div style="text-align: center; margin: 20px 0; font-weight: bold; text-transform: uppercase;">
+    <!-- JUDUL / JENIS SURAT OTOMATIS -->
+    <div style="text-align: center; margin: 20px 0; font-weight: bold; text-transform: uppercase;">
         <u>{{ nama_surat }}</u>
     </div>
+
+    <!-- ISI SURAT (HASIL RENDER HTML DARI AI) -->
     <div class="isi-surat">
         {{ final_content|safe }}
     </div>
@@ -138,8 +140,7 @@
     <div class="ttd-container">
         {% if approvals and approvals|length > 1 %}
             <div class="ttd-dual">
-                
-                <!-- Kolom Kanan: Dekan / Pimpinan Fakultas -->
+                <!-- Kolom Kanan: Pimpinan Fakultas (Step Akhir) -->
                 <div class="ttd-column-right">
                     <p>Yogyakarta, {{ tanggal_terbit|date:"d F Y" }}<br>{{ approvals.1.approver_role|default:"Pimpinan Fakultas" }}</p>
                     <div class="qr-code-box">
@@ -164,7 +165,10 @@
                         <div style="height: 60px;"></div>
                     {% endif %}
                 </div>
-                <p><u><b>{{ signer_name|default:"Dr. Pejabat Kampus, M.Sc." }}</b></u><br>NIP. {{ signer_nip|default:"198001012005011001" }}</p>
+                <p>
+                    <u><b>{{ approvals.0.approver_name|default:"Dr. Pejabat Kampus, M.Sc." }}</b></u><br>
+                    NIP. {{ approvals.0.approver_nip|default:"198001012005011001" }}
+                </p>
             </div>
             <div class="clear"></div>
         {% endif %}
