@@ -7,9 +7,11 @@ from .manual_handlers import handle_manual_approval_surat
 from .number_service import generate_surat_number
 from .tte_service import create_tte_signature
 from .pdf_service import render_and_upload_pdf
-from ..models import SuratApproval, SuratAuditLog
+from ..models import SuratApproval, SuratAuditLog, SuratRequest
 from .email_service import send_surat_via_gmail_admin
 from .telegram_service import send_surat_via_telegram
+import threading
+from django.db import close_old_connections
 
 logger = getLogger(__name__)
 
@@ -175,11 +177,13 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
                     action="FINAL_APPROVED_AND_ISSUED"
                 )
 
-                # 5. [PERBAIKAN UTAMA] EKSEKUSI DISTRIBUSI OTOMATIS BERDASARKAN PILIHAN AWAL
-                try:
-                    route_and_distribute_document(surat_req)
-                except Exception as dist_err:
-                    logger.error(f"Gagal mengirim dokumen otomatis ke kanal distribusi: {dist_err}")
+                dist_thread = threading.Thread(
+                    target=_execute_distribution_worker,
+                    args=(surat_req.id,),
+                    name=f"async-dist-{surat_req.id}",
+                    daemon=True
+                )
+                dist_thread.start()
 
             except Exception as e:
                 return {"error": f"Gagal menerbitkan dokumen resmi: {str(e)}"}, 500
@@ -228,3 +232,40 @@ def route_and_distribute_document(surat_request):
         )
     else:
         logger.warning(f"Destinasi pengiriman tidak dikenal atau kosong untuk SuratRequest id={surat_request.id}")
+        
+def _execute_distribution_worker(surat_request_id: int):
+    """
+    Worker asinkron untuk menjalankan route_and_distribute_document di latar belakang
+    agar tidak memblokir HTTP response aksi approval dosen.
+    """
+    close_old_connections()
+    try:
+        surat_req = SuratRequest.objects.get(pk=surat_request_id)
+        logger.info(f"[ASYNC_DIST_START] Memulai distribusi asinkron untuk SuratRequest id={surat_req.id}")
+        
+        route_and_distribute_document(surat_req)
+        
+        surat_req.status = "SENT"
+        surat_req.save(update_fields=["status"])
+        
+        SuratAuditLog.objects.create(
+            surat_request=surat_req,
+            action_id="DIST_SUCCESS",
+            action=f"ASYNC_SENT_VIA_{str(surat_req.chosen_destination).upper()}"
+        )
+        logger.info(f"[ASYNC_DIST_SUCCESS] Dokumen berhasil dikirim untuk SuratRequest id={surat_req.id}")
+    except Exception as exc:
+        logger.exception(f"[ASYNC_DIST_ERROR] Gagal mengirim dokumen di latar belakang: {exc}")
+        try:
+            surat_req = SuratRequest.objects.get(pk=surat_request_id)
+            surat_req.status = "DISTRIBUTION_FAILED"
+            surat_req.save(update_fields=["status"])
+            SuratAuditLog.objects.create(
+                surat_request=surat_req,
+                action_id="DIST_FAILED",
+                action=f"ASYNC_FAILED: {str(exc)}"[:255]
+            )
+        except Exception:
+            pass
+    finally:
+        close_old_connections()
