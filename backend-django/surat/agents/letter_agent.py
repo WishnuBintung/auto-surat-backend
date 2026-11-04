@@ -383,11 +383,13 @@ class SuratDraftingAgent:
             status_code = getattr(exc, "code", None) or getattr(exc, "status_code", None)
             exc_text = str(exc).lower()
             is_retriable_model_issue = (
-                status_code in (404, 503)
+                status_code in (404, 502, 503, 504)
                 or "404" in exc_text
-                or "not_found" in exc_text
                 or "503" in exc_text
+                or "unavailable" in exc_text
                 or "high demand" in exc_text
+                or "overloaded" in exc_text
+                or "resource_exhausted" in exc_text
             )
             if is_retriable_model_issue:
                 fallback_candidates = [
