@@ -21,11 +21,14 @@ def send_surat_via_gmail_admin(recipient_email: str, subject: str, body_message:
     resend.api_key = api_key
 
     try:
+                # Ganti karakter newline (\n) dengan <br> sebelum f-string
+        html_body = body_message.replace('\n', '<br>') if body_message else ""
+
         payload = {
             "from": getattr(settings, "DEFAULT_FROM_EMAIL", "onboarding@resend.dev"),
             "to": [recipient_email],
             "subject": subject,
-            "html": f"<p>{body_message.replace('\n', '<br>')}</p>",
+            "html": f"<p>{html_body}</p>",
             "text": body_message,
         }
 
