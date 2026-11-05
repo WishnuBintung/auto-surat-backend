@@ -6,7 +6,16 @@ from urllib.parse import urlparse
 
 import cloudinary.uploader
 from django.template.loader import render_to_string
-from weasyprint import HTML, default_url_fetcher
+from weasyprint import HTML
+
+try:
+    from weasyprint import default_url_fetcher
+except ImportError:
+    try:
+        from weasyprint.urls import default_url_fetcher
+    except ImportError:
+        from weasyprint.urls import URLFetcher
+        default_url_fetcher = URLFetcher()
 
 
 def _sanitize_html_for_pdf(raw_html: str) -> str:

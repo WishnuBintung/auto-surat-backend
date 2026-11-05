@@ -1,26 +1,29 @@
 # --- Python & Django ---
-*.py[cod]
-*$py.class
+*.pyc
 __pycache__/
-media/
-staticfiles/
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-.installed.cfg
-
-# --- Environment & Secrets ---
-.env
+*.pyo
+*.pyd
+.Python
+env/
 venv/
 ENV/
-env/
+env.bak/
+venv.bak/
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
 
-# --- IDE & Editor ---
-.vscode/
+# --- Environment & Credentials ---
+.env
+.env.*
+!.env.example
+
+# --- IDE & Editors ---
 .idea/
+.vscode/
 *.swp
 *.swo
-*~
 
 # --- OS & System Files ---
 .DS_Store
@@ -35,3 +38,7 @@ docker-data/
 surat/agents/verify_stage*.py
 backend-django/surat/agents/verify_stage*.py
 **/surat/agents/verify_stage*.py
+
+# --- Skills & Agents (Local only) ---
+.agents/
+skills-lock.json
