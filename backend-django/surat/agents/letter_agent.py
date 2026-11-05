@@ -815,7 +815,7 @@ class SuratDraftingAgent:
                 has_incomplete_required_slots=bool(missing_fields),
             )
 
-        setattr(first_draft, "to_payload_dict", _get_first_payload)
+        object.__setattr__(first_draft, "to_payload_dict", _get_first_payload)
 
         if missing_fields:
             # Sesuai Zero-Hallucination Policy: jika data wajib belum lengkap, skor tidak boleh >= 8
@@ -904,7 +904,7 @@ class SuratDraftingAgent:
                 has_incomplete_required_slots=bool(revised_missing),
             )
 
-        setattr(revised_draft, "to_payload_dict", _get_revised_merged_payload)
+        object.__setattr__(revised_draft, "to_payload_dict", _get_revised_merged_payload)
 
         if revised_missing:
             revised_draft.evaluation.self_critique_score = min(
@@ -1070,7 +1070,7 @@ class SuratDraftingAgent:
                 has_incomplete_required_slots=bool(missing_after_merge),
             )
 
-        setattr(revised_draft, "to_payload_dict", _get_merged_payload)
+        object.__setattr__(revised_draft, "to_payload_dict", _get_merged_payload)
 
         if not missing_after_merge:
             # Seluruh parameter wajib lengkap. Bersihkan peringatan missing fields

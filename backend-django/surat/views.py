@@ -147,10 +147,19 @@ def _execute_drafting_agent_worker(
             dynamic_fields_dict=dynamic_fields_dict,
         )
 
+        # CARA AMAN MENGEKSTRAK PAYLOAD DARI AGEN
         if hasattr(draft_output, "to_payload_dict") and callable(draft_output.to_payload_dict):
             structured_payload: Dict[str, Any] = draft_output.to_payload_dict()
+        elif hasattr(draft_output, "extracted_payload"):
+            payload_obj = draft_output.extracted_payload
+            if hasattr(payload_obj, "model_dump") and callable(payload_obj.model_dump):
+                structured_payload = payload_obj.model_dump(mode="json")
+            else:
+                structured_payload = dict(payload_obj)
+        elif hasattr(draft_output, "model_dump") and callable(draft_output.model_dump):
+            structured_payload = draft_output.model_dump(mode="json")
         else:
-            structured_payload = draft_output.extracted_payload.model_dump(mode="json")
+            structured_payload = dict(draft_output)
 
         surat_req = SuratRequest.objects.get(pk=surat_request_id)
         surat_req.payload_data = structured_payload
@@ -282,9 +291,17 @@ def _execute_redraft_agent_worker(
         )
 
         if hasattr(draft_output, "to_payload_dict") and callable(draft_output.to_payload_dict):
-            structured_payload = draft_output.to_payload_dict()
+            structured_payload: Dict[str, Any] = draft_output.to_payload_dict()
+        elif hasattr(draft_output, "extracted_payload"):
+            payload_obj = draft_output.extracted_payload
+            if hasattr(payload_obj, "model_dump") and callable(payload_obj.model_dump):
+                structured_payload = payload_obj.model_dump(mode="json")
+            else:
+                structured_payload = dict(payload_obj)
+        elif hasattr(draft_output, "model_dump") and callable(draft_output.model_dump):
+            structured_payload = draft_output.model_dump(mode="json")
         else:
-            structured_payload = draft_output.extracted_payload.model_dump(mode="json")
+            structured_payload = dict(draft_output)
 
         critique_score = draft_output.evaluation.self_critique_score
         # Memeriksa apakah masih ada field wajib yang bernilai kosong/null

@@ -108,19 +108,6 @@ CACHES = {
         }
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('POSTGRES_DB') ,
-#         'USER': os.environ.get('POSTGRES_USER'),
-#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-#         'HOST': os.environ.get('POSTGRES_HOST'),
-#         'PORT': os.environ.get('POSTGRES_PORT'),
-#     }
-# }
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -223,7 +210,8 @@ AGENT_MAX_REVISIONS = int(os.environ.get('AGENT_MAX_REVISIONS', '1'))
 AGENT_TIMEOUT_SECONDS = float(os.environ.get('AGENT_TIMEOUT_SECONDS', '30.0'))
 REQUIRED_FIELD_SURAT_PATH = BASE_DIR / 'required_field_surat.json' 
 
+BREVO_API_KEY = os.environ.get('BREVO_API_KEY', '')
 RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'onboarding@resend.dev')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', '')
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
