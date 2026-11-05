@@ -1,6 +1,12 @@
+import logging
+import os
 from enum import Enum
+from django.conf import settings
 from pydantic import BaseModel, Field
-from google import genai  # atau library client LLM yang kamu gunakan
+from google import genai
+from google.genai import types
+
+logger = logging.getLogger(__name__)
 
 # 1. Definisikan Enum kaku berdasarkan daftar kode surat resmi di database
 class SuratIntentEnum(str, Enum):
@@ -27,7 +33,17 @@ def route_intent_with_ai(user_message: str) -> str | None:
     Lapis kedua: Menggunakan AI dengan Pydantic Structured Outputs 
     ketika keyword matching gagal (mengembalikan None).
     """
-    client = genai.Client() # Inisialisasi client LLM
+    api_key = getattr(settings, "GEMINI_API_KEY", None) or os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY", "")
+    if not api_key:
+        logger.warning("GEMINI_API_KEY belum dikonfigurasi untuk AI Intent Router.")
+        return None
+
+    timeout_sec = float(getattr(settings, "AGENT_TIMEOUT_SECONDS", 15.0))
+    client = genai.Client(
+        api_key=str(api_key).strip(),
+        http_options=types.HttpOptions(timeout=int(timeout_sec * 1000)),
+    )
+    model_name = getattr(settings, "GEMINI_MODEL_NAME", "gemini-2.5-flash")
     
     prompt = f"""
     Analisis pesan dari mahasiswa berikut dan tentukan jenis surat apa yang mereka inginkan.
@@ -40,7 +56,7 @@ def route_intent_with_ai(user_message: str) -> str | None:
     try:
         # Memanggil LLM dengan paksaan struktur Pydantic (Structured Outputs)
         response = client.models.generate_content(
-            model='gemini-2.5-flash',  # atau model yang kamu gunakan
+            model=model_name,
             contents=prompt,
             config={
                 'response_mime_type': 'application/json',
@@ -55,5 +71,5 @@ def route_intent_with_ai(user_message: str) -> str | None:
 
     except Exception as e:
         # Jaring pengaman jika AI error (misal: 503 atau format meleset)
-        print(f"AI Router Error: {e}")
+        logger.warning("AI Router Error: %s", e)
         return None

@@ -709,30 +709,42 @@ class TestBackendIntegrationBridges(unittest.TestCase):
     def test_bagian2_item6_incomplete_html_templates_auto_fallback(self):
         """
         Bagian 2 #6: Template HTML yang 0 byte, memiliki syntax error '{{ ../', atau hanya
-        berisi kop surat tanpa placeholder '{{ final_approved_content }}' / '{{ isi_surat }}'
-        (seperti sk-kul.html, sr-bea.html, sr.mag.html) terdeteksi otomatis oleh
-        SuratExecutionTools._is_template_ready_for_ai_content() sehingga dialihkan ke PDF resmi utuh.
+        berisi kop surat tanpa placeholder konten AI terdeteksi otomatis oleh
+        SuratExecutionTools._is_template_ready_for_ai_content() sehingga dialihkan ke PDF resmi utuh,
+        sementara `base_surat.html` yang telah memiliki `{{ final_content|safe }}` siap digunakan.
         """
-        base_django_dir = Path(__file__).resolve().parent.parent.parent
-        kerangka_sk_kul = str(base_django_dir / "templates" / "kerangka-surat" / "sk-kul.html")
-        kerangka_si_mag = str(base_django_dir / "templates" / "kerangka-surat" / "si-mag.html")
-        surat_sr_mag = str(base_django_dir / "templates" / "surat" / "sr.mag.html")
+        import tempfile
 
-        # Dummy check tanpa perlu import penuh Django ORM
+        base_django_dir = Path(__file__).resolve().parent.parent.parent
+        base_surat_tmpl = base_django_dir / "templates" / "kerangka-surat" / "base_surat.html"
+        self.assertTrue(base_surat_tmpl.exists())
+
         with open(os.path.join(os.path.dirname(__file__), "execution_tools.py"), "r", encoding="utf-8") as f:
             exec_src = f.read()
         self.assertIn("_is_template_ready_for_ai_content", exec_src)
 
-        # Uji logika deteksi terhadap ketiga jenis template bermasalah di backend
-        for tmpl_file in (kerangka_sk_kul, kerangka_si_mag, surat_sr_mag):
+        def _check_ready(tmpl_file: str) -> bool:
+            if not os.path.exists(tmpl_file) or os.path.getsize(tmpl_file) == 0:
+                return False
             with open(tmpl_file, "r", encoding="utf-8") as tf:
                 raw_html = tf.read()
-            is_ready = (
-                os.path.getsize(tmpl_file) > 0
-                and "{{ ../" not in raw_html
-                and any(t in raw_html for t in ("final_approved_content", "ai_original_draft", "isi_surat"))
+            return (
+                "{{ ../" not in raw_html
+                and any(t in raw_html for t in ("final_approved_content", "ai_original_draft", "isi_surat", "final_content"))
             )
-            self.assertFalse(is_ready, f"Template {tmpl_file} seharusnya terdeteksi belum siap untuk konten AI")
+
+        self.assertTrue(_check_ready(str(base_surat_tmpl)))
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            empty_tmpl = os.path.join(tmpdir, "empty.html")
+            broken_tmpl = os.path.join(tmpdir, "broken.html")
+            with open(empty_tmpl, "w", encoding="utf-8") as f:
+                f.write("")
+            with open(broken_tmpl, "w", encoding="utf-8") as f:
+                f.write("<html><body>{{ ../syntax_error }}</body></html>")
+
+            self.assertFalse(_check_ready(empty_tmpl))
+            self.assertFalse(_check_ready(broken_tmpl))
 
     def test_bagian2_item7_all_10_validators_run_without_type_error(self):
         """
@@ -942,6 +954,59 @@ class TestBackendIntegrationBridges(unittest.TestCase):
             self.assertIn("[NO_TELP]", result.extracted_rule)
             self.assertEqual(len(result.style_guidelines), 1)
             self.assertNotIn("081234567890", result.style_guidelines[0])
+
+    def test_backend_security_and_workflow_fixes(self):
+        """
+        Memvalidasi seluruh perbaikan celah keamanan dan integrasi backend:
+        1. `extract_slots_from_text` pada `SuratDraftingAgent` bekerja untuk alur chat.
+        2. Sanitasi HTML & proteksi anti-SSRF pada `pdf_service.py`.
+        3. Penghapusan debug print password di `accounts/views.py`.
+        4. Proteksi anti-IDOR di `SuratRequestDetailAPIView` dan `SuratRequestRedraftAPIView`.
+        5. Integrasi `final_approved_content` dan Fase 3 `AgenticMemoryAgent` di `workflow_service.py`.
+        """
+        # 1. Uji extract_slots_from_text pada SuratDraftingAgent (mode fallback kontekstual & LLM mock)
+        agent = SuratDraftingAgent(api_key="", client=None)
+        res = agent.extract_slots_from_text(
+            user_prompt_context="PT Telkom Indonesia",
+            kode_surat="SR-MAG",
+            required_fields=[
+                {"field": "instansi_tujuan", "label": "Nama Instansi Tujuan"},
+                {"field": "posisi_dilamar", "label": "Posisi Magang"},
+            ],
+            current_slots={},
+        )
+        self.assertEqual(res.extracted_slots.get("instansi_tujuan"), "PT Telkom Indonesia")
+
+        # 2. Uji sanitasi HTML & anti-SSRF di pdf_service.py
+        base_django_dir = Path(__file__).resolve().parent.parent.parent
+        pdf_service_path = base_django_dir / "surat" / "services" / "pdf_service.py"
+        with open(pdf_service_path, "r", encoding="utf-8") as f:
+            pdf_src = f.read()
+        self.assertIn("_sanitize_html_for_pdf", pdf_src)
+        self.assertIn("_safe_weasyprint_url_fetcher", pdf_src)
+        self.assertIn("os.remove(pdf_temp_path)", pdf_src)
+
+        # 3. Pastikan tidak ada print(request.body) di accounts/views.py
+        acc_views_path = base_django_dir / "accounts" / "views.py"
+        with open(acc_views_path, "r", encoding="utf-8") as f:
+            acc_src = f.read()
+        self.assertNotIn("request.body", acc_src)
+        self.assertNotIn("BODY MENTAH", acc_src)
+
+        # 4. Pastikan SuratRequestDetailAPIView menerapkan get_queryset terfilter & Redraft menerima pk
+        surat_views_path = base_django_dir / "surat" / "views.py"
+        with open(surat_views_path, "r", encoding="utf-8") as f:
+            views_src = f.read()
+        self.assertIn("def post(self, request, pk=None):", views_src)
+        self.assertIn("target=_execute_redraft_agent_worker", views_src)
+        self.assertIn("final_approved_content=final_approved_content", views_src)
+
+        # 5. Pastikan workflow_service.py memanggil AgenticMemoryAgent (Fase 3)
+        wf_path = base_django_dir / "surat" / "services" / "workflow_service.py"
+        with open(wf_path, "r", encoding="utf-8") as f:
+            wf_src = f.read()
+        self.assertIn("record_feedback_memory", wf_src)
+        self.assertIn("final_approved_content", wf_src)
 
 
 if __name__ == "__main__":

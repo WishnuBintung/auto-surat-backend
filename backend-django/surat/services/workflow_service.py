@@ -25,10 +25,19 @@ def process_surat_request(student, surat_type, payload_data, attachments_files=N
         return handle_manual_approval_surat(student, surat_type, payload_data, attachments_files)
 
 
-def process_approval_action(approval_id, lecturer, action, catatan=""):
+def process_approval_action(
+    approval_id,
+    lecturer,
+    action,
+    catatan="",
+    final_approved_content=None,
+    final_status="SENT",
+):
     """
     Router saat Dosen melakukan APPROVE atau REJECT pada antrean surat.
     action: 'APPROVE' atau 'REJECT'
+    Mendukung penyimpanan koreksi draf oleh Dosen (`final_approved_content`),
+    pilihan status akhir (`final_status`), serta pemicuan pembelajaran memori gaya bahasa (Fase 3).
     """
     try:
         approval_step = SuratApproval.objects.select_related(
@@ -72,6 +81,10 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
         approval_step.catatan = catatan
         approval_step.save(update_fields=['status', 'catatan'])
 
+        # Simpan suntingan naskah dari Dosen jika dikirimkan
+        if isinstance(final_approved_content, str) and final_approved_content.strip():
+            surat_req.final_approved_content = final_approved_content.strip()
+
         # Cek apakah masih ada step approval berikutnya
         next_step = SuratApproval.objects.filter(
             surat_request=surat_req, 
@@ -83,7 +96,10 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
             next_step.status = 'PENDING'
             next_step.save(update_fields=['status'])
             surat_req.status = 'IN_REVIEW'
-            surat_req.save(update_fields=['status'])
+            update_cols = ['status']
+            if isinstance(final_approved_content, str) and final_approved_content.strip():
+                update_cols.append('final_approved_content')
+            surat_req.save(update_fields=update_cols)
 
             SuratAuditLog.objects.create(
                 surat_request=surat_req,
@@ -93,84 +109,94 @@ def process_approval_action(approval_id, lecturer, action, catatan=""):
             return {"message": "Persetujuan tahap ini berhasil. Surat diteruskan ke pejabat selanjutnya."}, 200
         else:
             # Jika ini step terakhir, terbitkan surat resmi secara penuh!
-            surat_req.status = 'APPROVED'
+            resolved_final_status = final_status if final_status in ("SENT", "PRINTED") else "SENT"
             
             try:
-                # Bungkus proses akhir dengan transaksi agar aman
+                # 1. Kunci penomoran surat, final_approved_content, dan tanda tangan kriptografis TTE di dalam transaksi singkat
                 with transaction.atomic():
-                    # 1. Generate Nomor Surat Resmi
                     nomor_resmi = generate_surat_number(surat_req.kode_surat, fakultas=surat_req.student.fakultas)
                     surat_req.nomor_surat_resmi = nomor_resmi
                     surat_req.kode_surat.template_path = "kerangka-surat/base_surat.html"
 
-                    # 2. Generate TTE & QR Code
-                    tte_data = create_tte_signature(surat_req, signer=lecturer)
-                    surat_req.qr_verification_code = tte_data['qr_code_url']
-
-                    # Tentukan teks konten final yang akan dicetak
                     resolved_content = (
                         surat_req.final_approved_content 
                         or surat_req.ai_original_draft 
                         or ""
                     )
+                    if not surat_req.final_approved_content and resolved_content:
+                        surat_req.final_approved_content = resolved_content
 
-                    # Ambil daftar antrean approval yang sudah disetujui/terkait untuk dilempar ke template
-                    surat_approvals = SuratApproval.objects.filter(surat_request=surat_req).order_by('step_order')
-                    surat_approvals_list = []
+                    tte_data = create_tte_signature(surat_req, signer=lecturer)
+                    surat_req.qr_verification_code = tte_data['qr_code_url']
+                    surat_req.status = 'APPROVED'
+                    surat_req.save(
+                        update_fields=[
+                            'nomor_surat_resmi',
+                            'final_approved_content',
+                            'qr_verification_code',
+                            'status',
+                        ]
+                    )
+
+                    surat_approvals = list(
+                        SuratApproval.objects.select_related('approver', 'approver__user')
+                        .filter(surat_request=surat_req)
+                        .order_by('step_order')
+                    )
+
+                # 2. Render PDF & unggah ke Cloudinary di luar transaction.atomic() agar tidak mengunci koneksi DB
+                import qrcode, io, base64
+                qr_img = qrcode.make(tte_data.get('token', nomor_resmi))
+                buf = io.BytesIO()
+                qr_img.save(buf, format="PNG")
+                qr_base64 = f"data:image/png;base64,{base64.b64encode(buf.getvalue()).decode('utf-8')}"
+
+                surat_approvals_list = []
+                total_steps = len(surat_approvals)
+
+                for index, app in enumerate(surat_approvals):
+                    step_order = getattr(app, 'step_order', None)
+                    app_status = getattr(app, 'status', None)
                     
-                    # Generate Base64 untuk QR Code TTE agar WeasyPrint pasti bisa merendernya
-                    import qrcode, io, base64
-                    qr_img = qrcode.make(tte_data.get('token', nomor_resmi))
-                    buf = io.BytesIO()
-                    qr_img.save(buf, format="PNG")
-                    qr_base64 = f"data:image/png;base64,{base64.b64encode(buf.getvalue()).decode('utf-8')}"
-
-                    surat_approvals_list = []
-                    total_steps = len(surat_approvals)
-
-                    for index, app in enumerate(surat_approvals):
-                        step_order = getattr(app, 'step_order', None)
-                        status = getattr(app, 'status', None)
-                        
-                        lecturer_obj = getattr(app, 'approver', None)
-                        user_obj = getattr(lecturer_obj, 'user', None) if lecturer_obj else None
-                        
-                        approver_name = getattr(user_obj, 'nama', None) or getattr(lecturer_obj, 'nama', None) or str(lecturer_obj)
-                        approver_nip = getattr(user_obj, 'nip_nim', None) or getattr(lecturer_obj, 'nip_nim', '-')
-                        
-                        if step_order == 1:
-                            approver_role = "Dosen Pembimbing"
-                        else:
-                            approver_role = "Pimpinan Fakultas"
-
-                        is_last = (index == total_steps - 1)
-                        qr_url = qr_base64 if is_last else None
-
-                        surat_approvals_list.append({
-                            "step_order": step_order,
-                            "approver_role": approver_role,
-                            "approver_name": approver_name,
-                            "approver_nip": approver_nip,
-                            "status": status,
-                            "qr_code_url": qr_url
-                        })
-
-                    context_data = {
-                        "student": surat_req.student,
-                        "payload": surat_req.payload_data,
-                        "nomor_surat": nomor_resmi,
-                        "nama_surat": surat_req.kode_surat.nama_surat,
-                        "qr_code_url": qr_base64,
-                        "final_content": resolved_content,
-                        "approvals": surat_approvals_list,
-                        "tanggal_terbit": timezone.now(),
-                    }
-                    pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
-                    surat_req.file_pdf_url = pdf_url
-                    surat_req.status = 'SENT'  # Update status akhir menjadi terkirim/selesai
-                    surat_req.save()
+                    lecturer_obj = getattr(app, 'approver', None)
+                    user_obj = getattr(lecturer_obj, 'user', None) if lecturer_obj else None
                     
-                # 4. Catat Audit Log Final
+                    approver_name = getattr(user_obj, 'nama', None) or getattr(lecturer_obj, 'nama', None) or str(lecturer_obj)
+                    approver_nip = getattr(user_obj, 'nip_nim', None) or getattr(lecturer_obj, 'nip_nim', '-')
+                    
+                    if step_order == 1:
+                        approver_role = "Dosen Pembimbing"
+                    else:
+                        approver_role = "Pimpinan Fakultas"
+
+                    is_last = (index == total_steps - 1)
+                    qr_url = qr_base64 if is_last else None
+
+                    surat_approvals_list.append({
+                        "step_order": step_order,
+                        "approver_role": approver_role,
+                        "approver_name": approver_name,
+                        "approver_nip": approver_nip,
+                        "status": app_status,
+                        "qr_code_url": qr_url
+                    })
+
+                context_data = {
+                    "student": surat_req.student,
+                    "payload": surat_req.payload_data,
+                    "nomor_surat": nomor_resmi,
+                    "nama_surat": surat_req.kode_surat.nama_surat,
+                    "qr_code_url": qr_base64,
+                    "final_content": resolved_content,
+                    "approvals": surat_approvals_list,
+                    "tanggal_terbit": timezone.now(),
+                }
+                pdf_url = render_and_upload_pdf(surat_req.kode_surat.template_path, context_data)
+                surat_req.file_pdf_url = pdf_url
+                surat_req.status = resolved_final_status
+                surat_req.save(update_fields=['file_pdf_url', 'status'])
+                    
+                # 3. Catat Audit Log Final
                 SuratAuditLog.objects.create(
                     surat_request=surat_req,
                     action_id="FIN_01",
@@ -235,15 +261,47 @@ def route_and_distribute_document(surat_request):
         
 def _execute_distribution_worker(surat_request_id: int):
     """
-    Worker asinkron untuk menjalankan route_and_distribute_document di latar belakang
-    agar tidak memblokir HTTP response aksi approval dosen.
+    Worker asinkron untuk menjalankan:
+    1. Pembelajaran memori gaya bahasa Fase 3 (`AgenticMemoryAgent.record_feedback_memory`)
+       apabila Dosen melakukan koreksi pada `final_approved_content`.
+    2. Distribusi dokumen akhir (`route_and_distribute_document`) ke Email / Telegram
+       agar tidak memblokir HTTP response aksi approval dosen.
     """
     close_old_connections()
     try:
-        surat_req = SuratRequest.objects.get(pk=surat_request_id)
+        surat_req = SuratRequest.objects.select_related('kode_surat').get(pk=surat_request_id)
+
+        # Fase 3: Agentic Memory Learning (jika ada suntingan dosen terhadap draf asli AI)
+        if surat_req.ai_original_draft and surat_req.final_approved_content:
+            try:
+                from ..agents.memory_agent import AgenticMemoryAgent
+
+                mem_agent = AgenticMemoryAgent()
+                mem_agent.record_feedback_memory(
+                    surat_request=surat_req,
+                    ai_original_draft=surat_req.ai_original_draft,
+                    final_approved_content=surat_req.final_approved_content,
+                    allow_heuristic_fallback=True,
+                )
+            except Exception as mem_exc:
+                logger.warning(
+                    "[ASYNC_MEMORY_WARN] Gagal menjalankan AgenticMemoryAgent untuk SuratRequest id=%s: %s",
+                    surat_req.id,
+                    mem_exc,
+                )
+
+        if not surat_req.chosen_destination or not surat_req.target_destination_address:
+            logger.info(
+                "[ASYNC_DIST_SKIP] Tidak ada destinasi pengiriman eksternal untuk SuratRequest id=%s.",
+                surat_req.id,
+            )
+            return
+
         logger.info(f"[ASYNC_DIST_START] Memulai distribusi asinkron untuk SuratRequest id={surat_req.id}")
         
-        route_and_distribute_document(surat_req)
+        dist_result = route_and_distribute_document(surat_req)
+        if isinstance(dist_result, dict) and dist_result.get("status") == "ERROR":
+            raise RuntimeError(dist_result.get("message", "Distribusi gagal."))
         
         surat_req.status = "SENT"
         surat_req.save(update_fields=["status"])

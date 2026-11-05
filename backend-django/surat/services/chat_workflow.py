@@ -3,7 +3,24 @@ from typing import Dict, Any
 from surat.models import SuratType, ChatThread
 from .detect_intent import detect_intent_dynamically
 from .route_intent import route_intent_with_ai
-from surat.agents.letter_agent import SuratDraftingAgent  # Pastikan diimport jika dibutuhkan, atau sesuaikan dengan agen ekstraktor
+from surat.agents.letter_agent import SuratDraftingAgent
+
+
+def get_effective_required_fields(surat_type) -> list:
+    """
+    Mengambil daftar required_fields dari kolom `SuratType.required_payload_fields` di DB.
+    Apabila kosong di DB, otomatis mengambil dari kamus `required_field_surat.json`
+    melalui `SuratDraftingAgent.get_required_fields_for_kode()` agar slot filling tidak pernah kosong.
+    """
+    db_fields = getattr(surat_type, "required_payload_fields", None)
+    if isinstance(db_fields, list) and len(db_fields) > 0:
+        return db_fields
+    try:
+        agent = SuratDraftingAgent()
+        return agent.get_required_fields_for_kode(surat_type.kode_surat)
+    except Exception:
+        return []
+
 
 def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_data: dict) -> str:
     """
@@ -26,7 +43,7 @@ def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_d
 
     # 2. Deteksi intent dari pesan user (Lapis 1 Keyword -> Lapis 2 AI Router)
     detected_kode_surat = detect_intent_dynamically(cleaned_msg)
-    if not detected_kode_surat:
+    if not detected_kode_surat and not active_intent:
         detected_kode_surat = route_intent_with_ai(cleaned_msg)
 
     # 3. KASUS A: Belum ada intent yang terkunci (Sesi baru)
@@ -43,7 +60,12 @@ def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_d
             thread_obj.title = f"Permohonan {surat_obj.nama_surat}"
             thread_obj.save(update_fields=['document_type', 'title', 'updated_at'])
         
-        return f"Baik, kita akan memproses **{surat_obj.nama_surat}** ({detected_kode_surat})Mari lengkapi data yang diperlukan!"
+        # Langsung ekstrak apabila di kalimat pertama mahasiswa sudah menyebutkan sebagian parameter
+        slot_reply = process_slot_filling_redis(cleaned_msg, session_data, is_initial_turn=True)
+        return (
+            f"Baik, kita akan memproses **{surat_obj.nama_surat}** ({detected_kode_surat}).\n\n"
+            f"{slot_reply}"
+        )
 
     # 4. KASUS B: Intent sudah terkunci, tapi user mendadak menyebutkan intent BARU
     if detected_kode_surat and detected_kode_surat != active_intent:
@@ -54,7 +76,7 @@ def handle_incoming_chat_with_redis(thread_id: str, user_message: str, session_d
         session_data["is_waiting_for_switch_confirmation"] = True
         
         return (
-            f"⚠️ Sesi saat ini sedang memproses **{old_surat.nama_surat}"
+            f"⚠️ Sesi saat ini sedang memproses **{old_surat.nama_surat}**. "
             f"Apakah Anda ingin membatalkan draf tersebut dan beralih membuat **{new_surat.nama_surat}**? "
             f"\n\n(Ketik **'Ya'** untuk beralih atau **'Tidak'** untuk melanjutkan draf sebelumnya)"
         )
@@ -91,10 +113,10 @@ def handle_switch_confirmation_redis(user_message: str, thread_id: str, session_
         session_data["is_waiting_for_switch_confirmation"] = False
         
         active_surat_obj = SuratType.objects.get(kode_surat=session_data.get("intent"))
-        return f"Baik, peralihan dibatalkan. Kita tetap melanjutkan pengisian untuk **{active_surat_obj.nama_surat}**[cite: 1, 2]."
+        return f"Baik, peralihan dibatalkan. Kita tetap melanjutkan pengisian untuk **{active_surat_obj.nama_surat}**."
 
 
-def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
+def process_slot_filling_redis(user_message: str, session_data: dict, is_initial_turn: bool = False) -> str:
     """
     Mengelola slot filling secara fleksibel (mendukung input acak/terbalik)
     serta membersihkan slot menggunakan fungsi sanitizer.
@@ -104,10 +126,10 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
     except SuratType.DoesNotExist:
         return "Terjadi kesalahan sistem: Jenis surat tidak ditemukan."
 
-    required_fields = surat_type.required_payload_fields or []
+    required_fields = get_effective_required_fields(surat_type)
     current_slots = session_data.get("slots", {})
     
-    main_slots_complete = all(
+    main_slots_complete = bool(required_fields) and all(
         item.get("field") in current_slots and bool(current_slots[item.get("field")])
         for item in required_fields
     )
@@ -137,6 +159,12 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
             session_data["slots"] = current_slots
             return f"✅ Preferensi pengiriman disimpan ({current_slots['chosen_destination']}: {current_slots['target_destination_address']}).\n\nSemua data telah lengkap! Silakan ketik **'Lanjut'** untuk memproses draf surat."
 
+        return (
+            f"✅ Seluruh data permohonan **{surat_type.nama_surat}** dan preferensi pengiriman "
+            f"({current_slots.get('chosen_destination')}: {current_slots.get('target_destination_address')}) "
+            f"telah lengkap dan siap dibuatkan draf surat!"
+        )
+
     # 1. GUNAKAN AI / EXTRACTOR UNTUK MENANGKAP SLOT DARI PESAN BEBAS USER
     # Menggunakan SuratDraftingAgent atau fungsi helper ekstraksi slot berstandar LLM
     try:
@@ -145,17 +173,25 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
         extraction_result = agent.extract_slots_from_text(
             user_prompt_context=user_message,
             kode_surat=surat_type.kode_surat,
-            required_fields=required_fields
+            required_fields=required_fields,
+            current_slots=None if is_initial_turn else current_slots,
         )
         extracted_data = getattr(extraction_result, "extracted_slots", {}) or {}
+        # Pada giliran pertama (saat user baru menyebutkan jenis surat saja seperti "Saya mau buat surat magang"),
+        # cegah fallback darurat memasukkan kalimat pembuka ke dalam slot pertama jika bukan nilai faktual
+        if is_initial_turn and len(extracted_data) == 1:
+            only_val = str(next(iter(extracted_data.values()))).strip()
+            if only_val.lower() == user_message.strip().lower():
+                extracted_data = {}
     except Exception:
-        # Fallback darurat jika ekstraksi AI gagal: masukkan langsung ke target kosong pertama
         extracted_data = {}
-        for item in required_fields:
-            fk = item.get("field")
-            if fk not in current_slots or not current_slots[fk]:
-                extracted_data[fk] = user_message
-                break
+        if not is_initial_turn:
+            # Fallback darurat jika ekstraksi AI gagal pada giliran tanya-jawab slot
+            for item in required_fields:
+                fk = item.get("field")
+                if fk not in current_slots or not current_slots[fk]:
+                    extracted_data[fk] = user_message
+                    break
 
     # 2. TERAPKAN SANITASI & AKUMULASI KE REDIS SLOTS (Accumulative Merge)
     for field_key, raw_val in extracted_data.items():
@@ -172,7 +208,7 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
     checklist_lines, is_complete, next_target_label = generate_checklist_status_response(surat_type, current_slots)
     formatted_checklist = "\n".join(checklist_lines)
     
-    main_slots_complete_now = all(
+    main_slots_complete_now = bool(required_fields) and all(
         item.get("field") in current_slots and bool(current_slots[field_key := item.get("field")])
         for item in required_fields
     )
@@ -189,7 +225,7 @@ def process_slot_filling_redis(user_message: str, session_data: dict) -> str:
         return f"{formatted_checklist}\n\nMohon informasikan data untuk: **{next_target_label}**"
 
 def generate_checklist_status_response(surat_type, current_slots: dict):
-    required_fields = surat_type.required_payload_fields or []
+    required_fields = get_effective_required_fields(surat_type)
     checklist_lines = [f"📋 **Status Kelengkapan: {surat_type.nama_surat}**"]
     
     all_complete = True

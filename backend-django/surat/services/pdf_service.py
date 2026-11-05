@@ -1,30 +1,107 @@
+import ipaddress
+import os
+import re
 import tempfile
-from django.template.loader import render_to_string
-from weasyprint import HTML
+from urllib.parse import urlparse
+
 import cloudinary.uploader
+from django.template.loader import render_to_string
+from weasyprint import HTML, default_url_fetcher
+
+
+def _sanitize_html_for_pdf(raw_html: str) -> str:
+    """
+    Membersihkan konten HTML surat dari tag dan atribut berbahaya (XSS / SSRF via WeasyPrint)
+    namun tetap mempertahankan tag pemformatan surat resmi (<p>, <table>, <tr>, <td>, <b>, <u>, <i>, <br>, dll).
+    """
+    if not raw_html or not isinstance(raw_html, str):
+        return ""
+
+    cleaned = re.sub(
+        r"<\s*(script|iframe|object|embed|applet|form|input|button|link|meta|base|style)\b[^>]*>.*?<\s*/\s*\1\s*>",
+        "",
+        raw_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    cleaned = re.sub(
+        r"<\s*(script|iframe|object|embed|applet|form|input|button|link|meta|base)\b[^>]*/?\s*>",
+        "",
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+    cleaned = re.sub(
+        r"\s+on[a-z]+\s*=\s*(['\"].*?['\"]|[^\s>]+)",
+        "",
+        cleaned,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    cleaned = re.sub(
+        r"(href|src)\s*=\s*['\"]\s*(javascript:|file:|vbscript:)[^'\"]*['\"]",
+        r'\1="#"',
+        cleaned,
+        flags=re.IGNORECASE,
+    )
+    return cleaned
+
+
+def _safe_weasyprint_url_fetcher(url: str, *args, **kwargs):
+    """
+    URL fetcher aman untuk WeasyPrint guna mencegah Server-Side Request Forgery (SSRF)
+    dan pembacaan file lokal server (`file://`).
+    Mengizinkan `data:image/...` (untuk QR Code TTE Base64) dan HTTPS publik yang aman.
+    """
+    if url.startswith("data:image/"):
+        return default_url_fetcher(url, *args, **kwargs)
+
+    parsed = urlparse(url)
+    scheme = (parsed.scheme or "").lower()
+    if scheme not in ("http", "https"):
+        raise ValueError(f"Skema URL '{scheme}' diblokir demi keamanan pada perender PDF.")
+
+    hostname = (parsed.hostname or "").lower()
+    if not hostname or hostname in ("localhost", "127.0.0.1", "0.0.0.0", "::1") or hostname.endswith(".local") or hostname.endswith(".internal"):
+        raise ValueError(f"Host internal '{hostname}' diblokir pada perender PDF.")
+
+    try:
+        ip_obj = ipaddress.ip_address(hostname)
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_link_local or ip_obj.is_reserved:
+            raise ValueError(f"Alamat IP privat/internal '{hostname}' diblokir pada perender PDF.")
+    except ValueError as exc:
+        if "diblokir" in str(exc):
+            raise
+
+    return default_url_fetcher(url, *args, **kwargs)
+
 
 def render_and_upload_pdf(template_path, context_data):
     """
-    1. Render template HTML dengan context data.
-    2. Cetak menjadi file PDF via WeasyPrint.
+    1. Sanitasi konten HTML dinamis dan render template HTML dengan context data.
+    2. Cetak menjadi file PDF via WeasyPrint dengan URL fetcher aman (anti-SSRF).
     3. Upload file PDF ke Cloudinary secara mandiri dan kembalikan URL amannya (secure_url).
+    4. Selalu hapus file PDF sementara di disk lokal pada blok finally.
     """
     if not template_path:
         template_path = "kerangka-surat/base_surat.html"
 
+    safe_context = dict(context_data or {})
+    if "final_content" in safe_context and isinstance(safe_context["final_content"], str):
+        safe_context["final_content"] = _sanitize_html_for_pdf(safe_context["final_content"])
+
     # Render string HTML menggunakan template engine Django
-    html_string = render_to_string(template_path, context_data)
+    html_string = render_to_string(template_path, safe_context)
 
-    # Cetak PDF ke file temporary sistem
-    with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as output_pdf:
-        HTML(string=html_string).write_pdf(output_pdf.name)
-        pdf_temp_path = output_pdf.name
-
-    # Bersihkan nomor surat dari garis miring
-    nomor_surat_clean = str(context_data.get('nomor_surat', 'unknown')).replace('/', '_')
-
-    # Unggah ke Cloudinary secara independen menggunakan resource_type="auto"
+    pdf_temp_path = None
     try:
+        # Cetak PDF ke file temporary sistem
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as output_pdf:
+            pdf_temp_path = output_pdf.name
+
+        HTML(string=html_string, url_fetcher=_safe_weasyprint_url_fetcher).write_pdf(pdf_temp_path)
+
+        # Bersihkan nomor surat dari garis miring
+        nomor_surat_clean = str(safe_context.get("nomor_surat", "unknown")).replace("/", "_")
+
+        # Unggah ke Cloudinary
         upload_result = cloudinary.uploader.upload(
             pdf_temp_path,
             resource_type="image",
@@ -32,15 +109,21 @@ def render_and_upload_pdf(template_path, context_data):
             access_mode="public",
             folder="autosurat_output",
             public_id=f"surat_{nomor_surat_clean}",
-            overwrite=True
+            overwrite=True,
         )
         secure_url = upload_result.get("secure_url")
-        
-        # SISIPKAN INI: Mengubah URL agar langsung mendownload file saat diklik
+
+        # Mengubah URL agar langsung mendownload file saat diklik
         if secure_url and "/upload/" in secure_url:
             secure_url = secure_url.replace("/upload/", "/upload/fl_attachment/")
-            
+
     except Exception as e:
         raise RuntimeError(f"Gagal mengunggah PDF ke Cloudinary: {str(e)}")
+    finally:
+        if pdf_temp_path and os.path.exists(pdf_temp_path):
+            try:
+                os.remove(pdf_temp_path)
+            except OSError:
+                pass
 
     return secure_url.strip() if secure_url else None

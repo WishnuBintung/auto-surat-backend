@@ -8,9 +8,8 @@ from .views import (
     SuratRequestDetailAPIView,
     LecturerApprovalActionAPIView,
     SuratVerifyAPIView,
-    SuratRequestRedraftAPIView,
     ChatSessionMessageAPIView,
-    ChatThreadCreateAPIView
+    ChatThreadCreateAPIView,
 )
 
 urlpatterns = [

@@ -1144,6 +1144,95 @@ class SuratDraftingAgent:
 
         return extract_dynamic_fields_from_surat_type(surat_type)
 
+    def extract_slots_from_text(
+        self,
+        user_prompt_context: str,
+        kode_surat: str,
+        required_fields: Optional[List[Dict[str, Any]]] = None,
+        current_slots: Optional[Dict[str, Any]] = None,
+    ) -> Any:
+        """
+        Mengekstrak nilai slot (field wajib) dari pesan obrolan bebas pengguna pada sesi chat.
+        Menggunakan Gemini Structured Outputs dengan skema dinamis per jenis surat, serta
+        dilengkapi fallback deterministik jika koneksi LLM terkendala.
+        Mengembalikan objek dengan atribut `extracted_slots` (Dict[str, Any]).
+        """
+        from types import SimpleNamespace
+
+        resolved_fields = (
+            required_fields
+            if isinstance(required_fields, list) and required_fields
+            else self.get_required_fields_for_kode(kode_surat)
+        )
+        existing_slots = dict(current_slots) if isinstance(current_slots, dict) else {}
+
+        if not user_prompt_context or not str(user_prompt_context).strip():
+            return SimpleNamespace(extracted_slots={})
+
+        text_clean = str(user_prompt_context).strip()
+
+        next_missing_field: Optional[Dict[str, Any]] = None
+        for item in resolved_fields:
+            if isinstance(item, dict) and item.get("field"):
+                fk = str(item["field"])
+                if fk not in existing_slots or not existing_slots.get(fk):
+                    next_missing_field = item
+                    break
+
+        extracted: Dict[str, Any] = {}
+        if self.api_key or self._client is not None:
+            try:
+                normalized_kode = "".join(ch for ch in (kode_surat or "").upper() if ch.isalnum()) or "Custom"
+                payload_schema_cls = build_dynamic_payload_schema(
+                    f"ChatSlot{normalized_kode}Schema",
+                    resolved_fields,
+                )
+
+                target_hint = ""
+                if next_missing_field:
+                    target_hint = (
+                        f"\nKonteks pertanyaan saat ini sedang meminta mahasiswa mengisi field "
+                        f"'{next_missing_field.get('field')}' ({next_missing_field.get('label', '')}). "
+                        f"Apabila pesan mahasiswa berupa jawaban langsung/singkat yang menjawab field tersebut, "
+                        f"petakan nilainya ke field '{next_missing_field.get('field')}'."
+                    )
+
+                extraction_prompt = (
+                    f"Ekstrak informasi faktual dari pesan mahasiswa berikut untuk permohonan surat '{kode_surat}'.\n"
+                    f"Pesan Mahasiswa: \"{text_clean}\"\n"
+                    f"Slot yang sudah terisi sebelumnya: {json.dumps(existing_slots, ensure_ascii=False)}"
+                    f"{target_hint}\n\n"
+                    "ATURAN KETAT:\n"
+                    "1. Hanya isi field yang datanya benar-benar disebutkan di dalam Pesan Mahasiswa.\n"
+                    "2. Untuk field lain yang tidak disebutkan di dalam Pesan Mahasiswa ini, WAJIB bernilai null.\n"
+                    "3. Jangan mengarang atau menebak data yang tidak ada."
+                )
+
+                parsed_model = self._invoke_structured_llm(
+                    system_prompt=(
+                        "Anda adalah asisten ekstraksi data administrasi akademik. "
+                        "Tugas Anda memetakan pesan mahasiswa ke dalam skema JSON secara akurat tanpa halusinasi."
+                    ),
+                    user_prompt=extraction_prompt,
+                    response_schema=payload_schema_cls,
+                )
+                raw_dump = parsed_model.model_dump(mode="json")
+                for k, v in raw_dump.items():
+                    if v is not None and str(v).strip() != "":
+                        extracted[k] = v
+            except Exception as exc:
+                logger.warning(
+                    "Ekstraksi slot via LLM untuk kode_surat=%s mengalami kendala (%s), beralih ke fallback kontekstual.",
+                    kode_surat,
+                    exc,
+                )
+
+        if not extracted and next_missing_field:
+            fk = str(next_missing_field["field"])
+            extracted[fk] = text_clean
+
+        return SimpleNamespace(extracted_slots=extracted)
+
     def run(
         self,
         user_prompt_context: str,

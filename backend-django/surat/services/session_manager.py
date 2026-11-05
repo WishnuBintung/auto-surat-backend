@@ -110,7 +110,16 @@ class AutoSuratSessionManager:
         # 4. Teruskan ke orkestrator logika alur chat (di file chat_workflow_service.py)
         reply_message = handle_incoming_chat_with_redis(thread_id, cleaned_msg, session_data)
 
-        # 5. Simpan kembali pembaruan state session_data ke Redis Cache (Sliding TTL)
+        # 5. Catat juga balasan asisten ke PostgreSQL (ChatMessage history) agar riwayat obrolan utuh
+        if thread and reply_message:
+            ChatMessage.objects.create(
+                thread=thread,
+                sender='assistant',
+                message=reply_message,
+                slots_snapshot=session_data.get("slots", {})
+            )
+
+        # 6. Simpan kembali pembaruan state session_data ke Redis Cache (Sliding TTL)
         cache.set(cls._get_redis_key(thread_id), session_data, timeout=cls.TTL_SECONDS)
 
         return reply_message

@@ -155,10 +155,52 @@ class SuratRequestCreateSerializer(serializers.Serializer):
 
 class ReDraftSuratRequestSerializer(serializers.Serializer):
     additional_prompt_context = serializers.CharField(
-        required=True,
-        allow_blank=False,
-        help_text="Konteks tambahan atau jawaban atas revision_notes dari agen AI."
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        help_text="Konteks tambahan atau jawaban atas revision_notes dari agen AI.",
     )
+    user_prompt_context = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        help_text="Alias opsional untuk konteks tambahan revisi surat.",
+    )
+    konteks = serializers.CharField(
+        required=False,
+        allow_blank=True,
+        allow_null=True,
+        write_only=True,
+        help_text="Alias opsional untuk konteks tambahan revisi surat.",
+    )
+    payload_data = serializers.JSONField(default=dict, required=False)
+
+    def validate(self, data):
+        candidates = [
+            data.get("additional_prompt_context"),
+            data.get("user_prompt_context"),
+            data.get("konteks"),
+        ]
+        raw_payload = data.get("payload_data")
+        if isinstance(raw_payload, dict) and raw_payload:
+            candidates.append(json.dumps(raw_payload, ensure_ascii=False))
+        elif isinstance(raw_payload, str) and raw_payload.strip():
+            candidates.append(raw_payload.strip())
+
+        resolved = next(
+            (item.strip() for item in candidates if isinstance(item, str) and item.strip()),
+            "",
+        )
+        if not resolved:
+            raise serializers.ValidationError(
+                {
+                    "additional_prompt_context": (
+                        "Konteks tambahan revisi (additional_prompt_context / user_prompt_context) wajib diisi."
+                    )
+                }
+            )
+        data["additional_prompt_context"] = resolved
+        return data
 class SuratApprovalActionSerializer(serializers.Serializer):
     """Serializer untuk input catatan opsional dan teks final saat Dosen melakukan APPROVE"""
     catatan = serializers.CharField(required=False, allow_blank=True, allow_null=True)
